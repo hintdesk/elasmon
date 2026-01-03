@@ -7,16 +7,20 @@ import { FormatBytesPipe } from '../../pipes/format-bytes.pipe';
 import { catchError, forkJoin, of, switchMap, timer } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'index',
-  imports: [DecimalPipe, FormatBytesPipe, TableModule],
+  imports: [FormsModule, ToggleSwitchModule, DecimalPipe, FormatBytesPipe, TableModule],
   templateUrl: './index.component.html',
   styleUrl: './index.component.css',
 })
 export class IndexComponent implements OnInit {
   connection = input<EsConnection>()
   indices = signal<EsIndex[]>([]);
+  allIndices: EsIndex[] = [];
+  showHidden : boolean = false;
 
   constructor(private indexService: IndexService) {
 
@@ -39,12 +43,9 @@ export class IndexComponent implements OnInit {
             })
           );
         })
-      ).subscribe((data:any) => {
+      ).subscribe((data: any) => {
         const items: EsIndex[] = [];
         for (const indexName in data.stats.indices) {
-          if (indexName.startsWith('.')) {
-            continue;
-          }
           const item = data.stats.indices[indexName];
           const index: EsIndex = {
             Name: indexName,
@@ -62,8 +63,22 @@ export class IndexComponent implements OnInit {
           }
           items.push(index);
         }
-        this.indices.set(items.sort((a, b) => a.Name.localeCompare(b.Name)));
+        this.allIndices = items.sort((a, b) => a.Name.localeCompare(b.Name));
+        this.filterIndices();
       });
+  }
+
+  showHiddenIndices(event: any) {
+    this.showHidden = event.checked;
+    this.filterIndices();
+  }
+
+  private filterIndices() {
+    if (this.showHidden) {
+      this.indices.set(this.allIndices);
+    } else {
+      this.indices.set(this.allIndices.filter(index => !index.Name.startsWith('.')));
+    }
   }
 
 }

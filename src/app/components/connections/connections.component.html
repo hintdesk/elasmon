@@ -2,7 +2,7 @@
 <div class="flex justify-end mb-4">
     <p-button (onClick)="newConnection()" label="New Connection"></p-button>
 </div>
-<p-dialog [closable]="false" [(visible)]="isVisible" [modal]="true" [style]="{ width: '500px' }" header="New Connection"
+<p-dialog [closable]="false" [(visible)]="isVisible" [modal]="true" [style]="{ width: '600px' }" header="New Connection"
     (onHide)="isVisible = false">
     <form #connectionForm="ngForm" (ngSubmit)="save(connectionForm)">
         <div class="flex items-center gap-4 mb-4">

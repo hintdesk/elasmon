@@ -3,14 +3,14 @@ import { ClusterService } from '../../services/cluster.service';
 import { EsConnection } from '../../entities/esConnection';
 import { ClusterStats } from '../../entities/clusterStats';
 import { FormatBytesPipe } from '../../pipes/format-bytes.pipe';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, TitleCasePipe } from '@angular/common';
 import { NodeService } from '../../services/node.service';
 import { catchError, forkJoin, of, switchMap, timer } from 'rxjs';
 import { ClusterHealth } from '../../entities/clusterHealth';
 
 @Component({
   selector: 'connection',
-  imports: [DecimalPipe, FormatBytesPipe],
+  imports: [TitleCasePipe, DecimalPipe, FormatBytesPipe],
   templateUrl: './connection.component.html',
   styleUrl: './connection.component.css',
 })

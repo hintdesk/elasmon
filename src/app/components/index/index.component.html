@@ -1,66 +1,73 @@
-<p-table [value]="indices()">
-    <ng-template #header>
-        <tr>
-            <th pSortableColumn="Name">
-                <div class="flex items-center gap-2">
-                    Name
-                    <p-sortIcon field="Name" />
-                </div>
-            </th>
-            <th pSortableColumn="Documents">
-                <div class="flex items-center gap-2">
-                    Documents
-                    <p-sortIcon field="Documents" />
-                </div>
-            </th>
-            <th pSortableColumn="Size">
-                <div class="flex items-center gap-2">
-                    Size
-                    <p-sortIcon field="Size" />
-                </div>
-            </th>
-            <th pSortableColumn="Shards">
-                <div class="flex items-center gap-2">
-                    Shards
-                    <p-sortIcon field="Shards" />
-                </div>
-            </th>
-            <th pSortableColumn="Replicas">
-                <div class="flex items-center gap-2">
-                    Replicas
-                    <p-sortIcon field="Replicas" />
-                </div>
-            </th>
-            <th pSortableColumn="Ingested">
-                <div class="flex items-center gap-2">
-                    Ingested
-                    <p-sortIcon field="Ingested" />
-                </div>
-            </th>
-            <th pSortableColumn="Rate">
-                <div class="flex items-center gap-2">
-                    Rate
-                    <p-sortIcon field="Rate" />
-                </div>
-            </th>
-        </tr>
-    </ng-template>
+<div class="p-4">
+    <div class="flex items-center justify-end mb-4">
+        <label for="showHiddenIndices" class="font-semibold mr-2">Show Hidden Indices</label>
+        <p-toggleSwitch (onChange)="showHiddenIndices($event)" inputId="showHiddenIndices" [(ngModel)]="showHidden"></p-toggleSwitch>
+    </div>
 
-    <ng-template #body let-esIndex>
-        <tr>
-            <td>{{ esIndex.Name }}</td>
-            <td>{{ esIndex.Documents }}</td>
-            <td>{{ esIndex.Size | formatBytes}}</td>
-            <td>{{ esIndex.Shards }}</td>
-            <td>{{ esIndex.Replicas }}</td>
-            @if (esIndex.Ingested >0 ){
-            <td>{{ esIndex.Ingested }}</td>
-            <td>{{ esIndex.Rate | number:'1.2-2' }}</td>
-            }
-            @else {
+    <p-table [value]="indices()">
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="Name">
+                    <div class="flex items-center gap-2">
+                        Name
+                        <p-sortIcon field="Name" />
+                    </div>
+                </th>
+                <th pSortableColumn="Documents">
+                    <div class="flex items-center gap-2">
+                        Documents
+                        <p-sortIcon field="Documents" />
+                    </div>
+                </th>
+                <th pSortableColumn="Size">
+                    <div class="flex items-center gap-2">
+                        Size
+                        <p-sortIcon field="Size" />
+                    </div>
+                </th>
+                <th pSortableColumn="Shards">
+                    <div class="flex items-center gap-2">
+                        Shards
+                        <p-sortIcon field="Shards" />
+                    </div>
+                </th>
+                <th pSortableColumn="Replicas">
+                    <div class="flex items-center gap-2">
+                        Replicas
+                        <p-sortIcon field="Replicas" />
+                    </div>
+                </th>
+                <th pSortableColumn="Ingested">
+                    <div class="flex items-center gap-2">
+                        Ingested
+                        <p-sortIcon field="Ingested" />
+                    </div>
+                </th>
+                <th pSortableColumn="Rate">
+                    <div class="flex items-center gap-2">
+                        Rate
+                        <p-sortIcon field="Rate" />
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template #body let-esIndex>
+            <tr>
+                <td>{{ esIndex.Name }}</td>
+                <td>{{ esIndex.Documents }}</td>
+                <td>{{ esIndex.Size | formatBytes}}</td>
+                <td>{{ esIndex.Shards }}</td>
+                <td>{{ esIndex.Replicas }}</td>
+                @if (esIndex.Ingested >0 ){
+                <td>{{ esIndex.Ingested }}</td>
+                <td>{{ esIndex.Rate | number:'1.2-2' }}</td>
+                }
+                @else {
                 <td></td>
                 <td></td>
-            }
-        </tr>
-    </ng-template>
-</p-table>
+                }
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
