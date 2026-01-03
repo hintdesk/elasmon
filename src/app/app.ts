@@ -11,6 +11,7 @@ import { EsConnection } from './entities/esConnection';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { ConnectionsComponent } from './components/connections/connections.component';
 import { ConnectionService } from './services/connection.service';
+import packageJson from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import { ConnectionService } from './services/connection.service';
   styleUrl: './app.css'
 })
 export class App {
+  version = packageJson.version;
   selectedConnectionNode = signal<any | undefined>(undefined);
   connectionNodes = computed<MenuItem[]>(() => this.buildConnectionNodes());
 
