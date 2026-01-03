@@ -66,7 +66,6 @@ export class App {
   }
 
   private onConnectionNodeSelected(conn: any, type: string) {
-    console.log("Selected node:", conn, type);
     this.selectedConnectionNode.set({...conn, "Type": type});
   }
 }
