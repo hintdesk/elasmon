@@ -42,3 +42,4 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 src/proxy.conf.json
+release/

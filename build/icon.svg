@@ -1,0 +1,10 @@
+<svg width="256" height="256" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="45" fill="#0f172a"/>
+  <!-- Elasticsearch-style bars -->
+  <rect x="20" y="25" width="60" height="12" rx="3" fill="#065f46"/>
+  <rect x="25" y="44" width="50" height="12" rx="3" fill="#78350f"/>
+  <rect x="30" y="63" width="40" height="12" rx="3" fill="#1e3a5f"/>
+  <!-- Monitor pulse line -->
+  <path d="M15 85 L35 85 L42 70 L50 90 L58 75 L65 85 L85 85" stroke="#047857" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

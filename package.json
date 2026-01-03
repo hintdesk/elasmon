@@ -1,12 +1,41 @@
 {
   "name": "elasmon",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Elasticsearch Monitor",
+  "main": "electron/main.js",
+  "author": "HintDesk",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "electron": "electron .",
+    "electron:dev": "ng build && electron .",
+    "electron:build": "ng build --configuration production --base-href ./ && electron-builder build --win"
+  },
+  "build": {
+    "appId": "com.hintdesk.elasmon",
+    "productName": "ElasMon",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "dir",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png",
+      "signAndEditExecutable": false
+    }
   },
   "prettier": {
     "printWidth": 100,
@@ -40,8 +69,12 @@
     "@angular/cli": "^21.0.4",
     "@angular/compiler-cli": "^21.0.0",
     "@tailwindcss/postcss": "^4.1.12",
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12",
     "jsdom": "^27.1.0",
+    "png-to-ico": "^3.0.1",
     "postcss": "^8.5.3",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.1.12",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
