@@ -1,0 +1,85 @@
+<div class="p-4">
+<div class="flex justify-end mb-4">
+    <p-button (onClick)="newConnection()" label="New Connection"></p-button>
+</div>
+<p-dialog [closable]="false" [(visible)]="isVisible" [modal]="true" [style]="{ width: '500px' }" header="New Connection"
+    (onHide)="isVisible = false">
+    <form #connectionForm="ngForm" (ngSubmit)="save(connectionForm)">
+        <div class="flex items-center gap-4 mb-4">
+            <label for="Name" class="font-semibold w-24">Name</label>
+            <input pInputText id="Name" name="name" class="flex-auto" autocomplete="off" 
+                [(ngModel)]="name" #nameField="ngModel" required />
+        </div>
+        @if (nameField.invalid && connectionForm.submitted) {
+            <small class="text-red-500 mb-2 block">Name is required</small>
+        }
+        <div class="flex items-center gap-4 mb-4">
+            <label for="Host" class="font-semibold w-24">Host</label>
+            <input pInputText id="Host" name="host" class="flex-auto" 
+                [(ngModel)]="host" #hostField="ngModel" required />
+        </div>
+        @if (hostField.invalid && connectionForm.submitted) {
+            <small class="text-red-500 mb-2 block">Host is required</small>
+        }
+        <div class="flex items-center gap-4 mb-4">
+            <label for="Username" class="font-semibold w-24">Username</label>
+            <input pInputText id="Username" name="username" class="flex-auto" 
+                [(ngModel)]="username" #usernameField="ngModel" required />
+        </div>
+        @if (usernameField.invalid && connectionForm.submitted) {
+            <small class="text-red-500 mb-2 block">Username is required</small>
+        }
+        <div class="flex items-center gap-4 mb-4">
+            <label for="Password" class="font-semibold w-24">Password</label>
+            <input pInputText id="Password" name="password" class="flex-auto" type="password" 
+                [(ngModel)]="password" #passwordField="ngModel" required />
+        </div>
+        @if (passwordField.invalid && connectionForm.submitted) {
+            <small class="text-red-500 mb-2 block">Password is required</small>
+        }
+        <div class="flex justify-end gap-2">
+            <p-button label="Cancel" severity="secondary" (click)="cancel(connectionForm)" />
+            <p-button label="Save" type="submit" />
+        </div>
+    </form>
+</p-dialog>
+<p-table [value]="connections()">
+    <ng-template #header>
+        <tr>
+            <th pSortableColumn="Name">
+                <div class="flex items-center gap-2">
+                    Name
+                    <p-sortIcon field="Name" />
+                </div>
+            </th>
+            <th pSortableColumn="Host">
+                <div class="flex items-center gap-2">
+                    Host
+                    <p-sortIcon field="Host" />
+                </div>
+            </th>
+            <th pSortableColumn="Username">
+                <div class="flex items-center gap-2">
+                    Username
+                    <p-sortIcon field="Username" />
+                </div>
+            </th>
+            <th>Password</th>
+
+
+        </tr>
+    </ng-template>
+
+    <ng-template #body let-conn>
+        <tr>
+            <td>{{ conn.Name }}</td>
+            <td>{{ conn.Host }}</td>
+            <td>{{ conn.Username }}</td>
+            <td>****</td>
+            <td>
+                <p-button rounded severity="secondary" (click)="delete(conn)" icon="pi pi-trash"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>

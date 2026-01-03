@@ -1,0 +1,64 @@
+<!-- Shard Stats Cards Grid - responsive for mobile -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 p-4">
+    
+    <!-- Active Shards Card -->
+    <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-sm text-gray-500 font-medium">Active Shards</p>
+                <p class="text-2xl font-bold mt-1">{{ clusterHealth()?.active_shards! }}</p>
+            </div>
+            <i class="pi pi-check-circle text-3xl text-green-500"></i>
+        </div>
+        <p class="text-xs text-gray-400 mt-3">{{ clusterHealth()?.active_shards_percent_as_number | number:'1.1-1' }}% of total</p>
+    </div>
+
+    <!-- Primary Shards Card -->
+    <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-sm text-gray-500 font-medium">Primary Shards</p>
+                <p class="text-2xl font-bold mt-1">{{ clusterHealth()?.active_primary_shards! }}</p>
+            </div>
+            <i class="pi pi-star text-3xl text-blue-500"></i>
+        </div>
+        <p class="text-xs text-gray-400 mt-3">Active primary shards</p>
+    </div>
+
+    <!-- Relocating Shards Card -->
+    <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-sm text-gray-500 font-medium">Relocating</p>
+                <p class="text-2xl font-bold mt-1" [class.text-yellow-500]="clusterHealth()?.relocating_shards! > 0">{{ clusterHealth()?.relocating_shards! }}</p>
+            </div>
+            <i class="pi pi-arrows-h text-3xl text-yellow-500"></i>
+        </div>
+        <p class="text-xs text-gray-400 mt-3">Shards being relocated</p>
+    </div>
+
+    <!-- Initializing Shards Card -->
+    <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-sm text-gray-500 font-medium">Initializing</p>
+                <p class="text-2xl font-bold mt-1" [class.text-orange-500]="clusterHealth()?.initializing_shards! > 0">{{ clusterHealth()?.initializing_shards! }}</p>
+            </div>
+            <i class="pi pi-spinner text-3xl text-orange-500"></i>
+        </div>
+        <p class="text-xs text-gray-400 mt-3">Shards being initialized</p>
+    </div>
+
+    <!-- Unassigned Shards Card -->
+    <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-sm text-gray-500 font-medium">Unassigned</p>
+                <p class="text-2xl font-bold mt-1" [class.text-red-500]="clusterHealth()?.unassigned_shards! > 0">{{ clusterHealth()?.unassigned_shards! }}</p>
+            </div>
+            <i class="pi pi-exclamation-triangle text-3xl text-red-500"></i>
+        </div>
+        <p class="text-xs text-gray-400 mt-3">Shards not assigned to node</p>
+    </div>
+
+</div>

@@ -1,0 +1,93 @@
+<p-table [value]="nodes()" class="p-4">
+    <ng-template #header>
+        <tr>
+            <th pSortableColumn="Name">
+                <div class="flex items-center gap-2">
+                    Name
+                    <p-sortIcon field="Name" />
+                </div>
+            </th>
+            <th pSortableColumn="Cpu">
+                <div class="flex items-center gap-2">
+                    CPU %
+                    <p-sortIcon field="Cpu" />
+                </div>
+            </th>
+            <th pSortableColumn="Heap">
+                <div class="flex items-center gap-2">
+                    Heap %
+                    <p-sortIcon field="Heap" />
+                </div>
+            </th>
+            <th pSortableColumn="Memory">
+                <div class="flex items-center gap-2">
+                    Memory %
+                    <p-sortIcon field="Memory" />
+                </div>
+            </th>
+            <th pSortableColumn="Disk">
+                <div class="flex items-center gap-2">
+                    Disk %
+                    <p-sortIcon field="Disk" />
+                </div>
+            </th> 
+            @if (hasSearchRejected()) {
+            <th pSortableColumn="ThreadPoolSearchRejected" pTooltip="ThreadPool Search Rejected" tooltipPosition="top">
+                <div class="flex items-center gap-2">
+                    Search Rej.
+                    <p-sortIcon field="ThreadPoolSearchRejected" />
+                </div>
+            </th> 
+            } 
+            @if (hasWriteRejected()) {
+            <th pSortableColumn="ThreadPoolWriteRejected" pTooltip="ThreadPool Write Rejected" tooltipPosition="top">
+                <div class="flex items-center gap-2">
+                    Write Rej.
+                    <p-sortIcon field="ThreadPoolWriteRejected" />
+                </div>
+            </th>
+            }
+
+            <th pSortableColumn="TotalShards">
+                <div class="flex items-center gap-2">
+                    Total Shards
+                    <p-sortIcon field="TotalShards" />
+                </div>
+            </th>
+
+            <th pSortableColumn="ShardsPerGBHeap" pTooltip="Number of shards per GB Heap" tooltipPosition="top">
+                <div class="flex items-center gap-2">
+                    Shards/GB Heap
+                    <p-sortIcon field="ShardsPerGBHeap" />
+                </div>
+            </th>
+
+            <th pSortableColumn="Uptime">
+                <div class="flex items-center gap-2">
+                    Uptime
+                    <p-sortIcon field="Uptime" />
+                </div>
+            </th>
+            
+        </tr>
+    </ng-template>
+
+    <ng-template #body let-node>
+        <tr>
+            <td>{{ node.Name }}</td>
+            <td [class]="node.Cpu >= 80 ? 'text-red-500 font-bold' : ''">{{ node.Cpu || '' }}</td>
+            <td [class]="node.Heap >= 85 ? 'text-red-500 font-bold' : ''">{{ node.Heap }}</td>
+            <td>{{ node.Memory }}</td>
+            <td [class]="node.Disk >= 85 ? 'text-red-500 font-bold' : ''">{{ node.Disk | number:'1.2-2'}}</td>
+            @if (hasSearchRejected()) {
+            <td [class]="node.ThreadPoolSearchRejected > 0 ? 'text-red-500 font-bold' : ''">{{ node.ThreadPoolSearchRejected }}</td>
+            }
+            @if (hasWriteRejected()) {
+            <td [class]="node.ThreadPoolWriteRejected > 0 ? 'text-red-500 font-bold' : ''">{{ node.ThreadPoolWriteRejected }}</td>
+            }
+            <td>{{ node.TotalShards || '' }}</td>
+            <td>{{ node.ShardsPerGBHeap ? (node.ShardsPerGBHeap | number:'1.2-2') : '' }}</td>
+            <td>{{ node.Uptime | msToDaysHours }}</td>
+        </tr>
+    </ng-template>
+</p-table>
