@@ -1,24 +1,26 @@
-import { Component, input, OnInit, signal } from '@angular/core';
+import { Component, effect, input, signal } from '@angular/core';
 import { ClusterService } from '../../services/cluster.service';
 import { EsConnection } from '../../entities/esConnection';
 import { ClusterStats } from '../../entities/clusterStats';
 import { FormatBytesPipe } from '../../pipes/format-bytes.pipe';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
 import { NodeService } from '../../services/node.service';
-import { catchError, forkJoin, of, switchMap, timer } from 'rxjs';
+import { catchError, forkJoin, of, Subscription, switchMap, timer } from 'rxjs';
 import { ClusterHealth } from '../../entities/clusterHealth';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'connection',
-  imports: [TitleCasePipe, DecimalPipe, FormatBytesPipe],
+  imports: [ProgressSpinnerModule, TitleCasePipe, DecimalPipe, FormatBytesPipe],
   templateUrl: './connection.component.html',
   styleUrl: './connection.component.css',
 })
-export class ConnectionComponent implements OnInit {
+export class ConnectionComponent {
 
   connection = input<EsConnection>()
   clusterStats = signal<ClusterStats | null>(null);
   clusterHealth = signal<ClusterHealth | null>(null);
+  loading = signal<boolean>(true);
 
   http = signal<number>(0);
 
@@ -28,14 +30,38 @@ export class ConnectionComponent implements OnInit {
   indexTotal = signal<number>(0);
   indexTime = signal<number>(0);
 
+  private subscription: Subscription | null = null;
+
   constructor(
     private elasticService: ClusterService,
     private nodeService: NodeService) {
-
+    
+    effect(() => {
+      const conn = this.connection();
+      if (conn) {
+        this.resetAndLoad();
+      }
+    });
   }
 
-  ngOnInit(): void {
-    timer(0, 10000)
+  private resetAndLoad(): void {
+    // Cancel previous subscription
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+
+    // Reset all data and show loading
+    this.loading.set(true);
+    this.clusterStats.set(null);
+    this.clusterHealth.set(null);
+    this.http.set(0);
+    this.queryTotal.set(0);
+    this.queryTime.set(0);
+    this.indexTotal.set(0);
+    this.indexTime.set(0);
+
+    // Start new subscription
+    this.subscription = timer(0, 10000)
       .pipe(
         switchMap(() => {
           const clusterStatsRequest = this.elasticService.getClusterStats(this.connection()!);
@@ -55,6 +81,7 @@ export class ConnectionComponent implements OnInit {
         })
 
       ).subscribe((data: any) => {
+        this.loading.set(false);
         this.http.set(0);
         this.queryTotal.set(0);
         this.queryTime.set(0);
@@ -75,9 +102,6 @@ export class ConnectionComponent implements OnInit {
           this.indexTime.set(this.indexTime() + node.indices.indexing.index_time_in_millis);
         }
       });
-
-
-
   }
 
 }
