@@ -32,21 +32,25 @@ export class App {
     const nodes: MenuItem[] = this.connectionService.items().map((conn: EsConnection) =>
     ({
       label: conn.Name,
+      icon: 'pi pi-database',
       command: () => this.onConnectionNodeSelected(conn, "Connection"),
       items: [
         {
           key: conn.Id + "_N",
           label: "Nodes",
+          icon: 'pi pi-sitemap',
           command: () => this.onConnectionNodeSelected(conn, "Node"),
         },
         {
           key: conn.Id + "_I",
           label: "Indices",
+          icon: 'pi pi-list',
           command: () => this.onConnectionNodeSelected(conn, "Index"),
         },
         {
           key: conn.Id + "_S",
           label: "Shards",
+          icon: 'pi pi-th-large',
           command: () => this.onConnectionNodeSelected(conn, "Shard"),
         }]
     }));
@@ -54,6 +58,7 @@ export class App {
     const connectionsNode: MenuItem = {
       key: "connections",
       label: 'Connections',
+      icon: 'pi pi-server',
       command: () => this.onConnectionNodeSelected(undefined, "Connections"),
     };
 
