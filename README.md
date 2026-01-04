@@ -1,59 +1,65 @@
-# Elasmon
+# ElasMon
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+A standalone desktop application for monitoring Elasticsearch clusters in real-time.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **Cluster Overview**: Monitor cluster health, status, node count, documents, store size, CPU, memory, heap, and disk usage
+- **Node Statistics**: View detailed node metrics including CPU, heap, memory, disk usage, thread pool rejections, shards per node, and uptime
+- **Index Management**: Browse all indices with document counts, size, shards, replicas, and ingestion rate tracking
+- **Shard Health**: Monitor active, primary, relocating, initializing, and unassigned shards
+- **Multiple Connections**: Manage and switch between multiple Elasticsearch clusters
+- **Auto Refresh**: Data automatically refreshes every 10 seconds
 
-```bash
-ng serve
-```
+## Screenshots
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Clusters Dashboard
+![Clusters Dashboard](readme/1.png)
 
-## Code scaffolding
+### Cluster Statistics
+![Cluster Statistics](readme/2.png)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Tech Stack
 
-```bash
-ng generate component component-name
-```
+- **Frontend**: Angular 21, PrimeNG 21, Tailwind CSS 4
+- **Desktop**: Electron 39
+- **Language**: TypeScript
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Installation
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Build from Source
 
 ```bash
-ng test
+# Clone the repository
+git clone https://github.com/hintdesk/elasmon.git
+cd elasmon
+
+# Install dependencies
+npm install
+
+# Run in development mode
+npm start
+
+# Build for production (Windows)
+npm run electron:build
 ```
 
-## Running end-to-end tests
+The built application will be available in the `release/win-unpacked` folder.
 
-For end-to-end (e2e) testing, run:
+## Usage
 
-```bash
-ng e2e
-```
+1. Launch ElasMon
+2. Click on "Connections" in the left panel
+3. Add a new Elasticsearch connection with:
+   - Name: A friendly name for the connection
+   - URL: Elasticsearch cluster URL (e.g., `http://localhost:9200`)
+   - Username/Password: Authentication credentials
+4. Click Save and select the connection to start monitoring
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## License
 
-## Additional Resources
+MIT License
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Author
+
+[HintDesk](https://github.com/hintdesk)

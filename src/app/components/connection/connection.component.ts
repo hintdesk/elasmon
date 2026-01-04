@@ -1,4 +1,4 @@
-import { Component, effect, input, signal } from '@angular/core';
+import { Component, effect, input, OnDestroy, signal } from '@angular/core';
 import { ClusterService } from '../../services/cluster.service';
 import { EsConnection } from '../../entities/esConnection';
 import { ClusterStats } from '../../entities/clusterStats';
@@ -15,7 +15,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   templateUrl: './connection.component.html',
   styleUrl: './connection.component.css',
 })
-export class ConnectionComponent {
+export class ConnectionComponent implements OnDestroy {
 
   connection = input<EsConnection>()
   clusterStats = signal<ClusterStats | null>(null);
@@ -44,11 +44,20 @@ export class ConnectionComponent {
     });
   }
 
-  private resetAndLoad(): void {
-    // Cancel previous subscription
+  ngOnDestroy(): void {
+    this.stopTimer();
+  }
+
+  private stopTimer(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
+      this.subscription = null;
     }
+  }
+
+  private resetAndLoad(): void {
+    // Cancel previous subscription
+    this.stopTimer();
 
     // Reset all data and show loading
     this.loading.set(true);

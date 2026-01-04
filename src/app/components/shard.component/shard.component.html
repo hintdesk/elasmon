@@ -1,5 +1,11 @@
 <!-- Shard Stats Cards Grid - responsive for mobile -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 p-4">
+<div class="p-4">
+@if (loading()) {
+    <div class="flex justify-center items-center h-64">
+        <p-progressSpinner strokeWidth="4" />
+    </div>
+} @else {
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
     
     <!-- Active Shards Card -->
     <div class="p-card p-4 rounded-lg shadow-md">
@@ -61,4 +67,6 @@
         <p class="text-xs text-gray-400 mt-3">Shards not assigned to node</p>
     </div>
 
+</div>
+}
 </div>

@@ -4,6 +4,11 @@
         <p-toggleSwitch (onChange)="showHiddenIndices($event)" inputId="showHiddenIndices" [(ngModel)]="showHidden"></p-toggleSwitch>
     </div>
 
+    @if (loading()) {
+        <div class="flex justify-center items-center h-64">
+            <p-progressSpinner strokeWidth="4" />
+        </div>
+    } @else {
     <p-table [value]="indices()">
         <ng-template #header>
             <tr>
@@ -70,4 +75,5 @@
             </tr>
         </ng-template>
     </p-table>
+    }
 </div>
