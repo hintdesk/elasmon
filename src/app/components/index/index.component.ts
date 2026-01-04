@@ -81,6 +81,7 @@ export class IndexComponent implements OnDestroy {
             Documents: item.primaries.docs.count,
             Size: item.primaries.store.size_in_bytes,
             Shards: item.primaries.shard_stats.total_count,
+            GBPerShard: (item.primaries.store.size_in_bytes / (1024 * 1024 * 1024)) / item.primaries.shard_stats.total_count,
             Replicas: data.catIndices.find((catIndex: any) => catIndex.index === indexName)?.rep ?? 0,
             ConnectionId: this.connection()!.Id,
             Ingested: 0

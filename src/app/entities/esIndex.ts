@@ -7,4 +7,6 @@ export class EsIndex {
     Shards!: number;
     Replicas!: number;
     Rate?: number;
+    GBPerShard!: number;
+
 }

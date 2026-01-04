@@ -1,13 +1,14 @@
 <div class="p-4">
     <div class="flex items-center justify-end mb-4">
         <label for="showHiddenIndices" class="font-semibold mr-2">Show Hidden Indices</label>
-        <p-toggleSwitch (onChange)="showHiddenIndices($event)" inputId="showHiddenIndices" [(ngModel)]="showHidden"></p-toggleSwitch>
+        <p-toggleSwitch (onChange)="showHiddenIndices($event)" inputId="showHiddenIndices"
+            [(ngModel)]="showHidden"></p-toggleSwitch>
     </div>
 
     @if (loading()) {
-        <div class="flex justify-center items-center h-64">
-            <p-progressSpinner strokeWidth="4" />
-        </div>
+    <div class="flex justify-center items-center h-64">
+        <p-progressSpinner strokeWidth="4" />
+    </div>
     } @else {
     <p-table [value]="indices()">
         <ng-template #header>
@@ -36,6 +37,14 @@
                         <p-sortIcon field="Shards" />
                     </div>
                 </th>
+
+                <th pSortableColumn="GBPerShard" pTooltip="Number of GB per Shard" tooltipPosition="top">
+                    <div class="flex items-center gap-2">
+                        GB/Shard
+                        <p-sortIcon field="GBPerShard" />
+                    </div>
+                </th>
+
                 <th pSortableColumn="Replicas">
                     <div class="flex items-center gap-2">
                         Replicas
@@ -63,6 +72,7 @@
                 <td>{{ esIndex.Documents }}</td>
                 <td>{{ esIndex.Size | formatBytes}}</td>
                 <td>{{ esIndex.Shards }}</td>
+                <td [class]="esIndex.GBPerShard > 30 ? 'text-red-500 font-bold' : ''">{{ esIndex.GBPerShard ? (esIndex.GBPerShard | number:'1.2-2') : '' }}</td>
                 <td>{{ esIndex.Replicas }}</td>
                 @if (esIndex.Ingested >0 ){
                 <td>{{ esIndex.Ingested }}</td>

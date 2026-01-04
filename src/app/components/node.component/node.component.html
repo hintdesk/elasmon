@@ -68,13 +68,6 @@
                 </div>
             </th>
 
-            <th pSortableColumn="GBPerShard" pTooltip="Number of GB per Shard" tooltipPosition="top">
-                <div class="flex items-center gap-2">
-                    GB/Shard
-                    <p-sortIcon field="GBPerShard" />
-                </div>
-            </th>
-
             <th pSortableColumn="Uptime">
                 <div class="flex items-center gap-2">
                     Uptime
@@ -100,7 +93,6 @@
             }
             <td>{{ node.TotalShards || '' }}</td>
             <td>{{ node.ShardsPerGBHeap ? (node.ShardsPerGBHeap | number:'1.2-2') : '' }}</td>
-            <td>{{ node.GBPerShard ? (node.GBPerShard | number:'1.2-2') : '' }}</td>
             <td>{{ node.Uptime | msToDaysHours }}</td>
         </tr>
     </ng-template>

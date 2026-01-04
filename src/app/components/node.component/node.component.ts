@@ -81,7 +81,6 @@ export class NodeComponent implements OnDestroy {
             ThreadPoolWriteRejected: node.thread_pool.write.rejected,
             TotalShards: node.indices.shard_stats.total_count,
             ShardsPerGBHeap: node.indices.shard_stats.total_count / (node.jvm.mem.heap_max_in_bytes / (1024 * 1024 * 1024)),
-            GBPerShard: (node.indices.store.size_in_bytes / (1024 * 1024 * 1024)) / node.indices.shard_stats.total_count,
             Uptime: node.jvm.uptime_in_millis
           })
         }
