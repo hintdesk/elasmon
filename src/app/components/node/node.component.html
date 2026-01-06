@@ -75,6 +75,20 @@
                 </div>
             </th>
             
+            <th pSortableColumn="HeapMaxInBytes">
+                <div class="flex items-center gap-2">
+                    Heap GB
+                    <p-sortIcon field="HeapMaxInBytes" />
+                </div>
+            </th>
+
+            <th pSortableColumn="MemTotalInBytes">
+                <div class="flex items-center gap-2">
+                    Memory GB
+                    <p-sortIcon field="MemTotalInBytes" />
+                </div>
+            </th>
+
         </tr>
     </ng-template>
 
@@ -92,8 +106,10 @@
             <td [class]="node.ThreadPoolWriteRejected > 0 ? 'text-red-500 font-bold' : ''">{{ node.ThreadPoolWriteRejected }}</td>
             }
             <td>{{ node.TotalShards || '' }}</td>
-            <td>{{ node.ShardsPerGBHeap ? (node.ShardsPerGBHeap | number:'1.2-2') : '' }}</td>
+            <td [class]="node.ShardsPerGBHeap >= 20 ? 'text-red-500 font-bold' : ''">{{ node.ShardsPerGBHeap ? (node.ShardsPerGBHeap | number:'1.2-2') : '' }}</td>
             <td>{{ node.Uptime | msToDaysHours }}</td>
+            <td>{{ node.HeapMaxInBytes | formatBytes }}</td>
+            <td>{{ node.MemTotalInBytes | formatBytes }}</td>
         </tr>
     </ng-template>
 </p-table>

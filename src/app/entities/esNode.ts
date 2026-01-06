@@ -9,4 +9,6 @@ export class EsNode {
     ThreadPoolWriteRejected!: number;
     TotalShards!: number;
     ShardsPerGBHeap!: number;
+    HeapMaxInBytes!: number;
+    MemTotalInBytes!: number;
 }

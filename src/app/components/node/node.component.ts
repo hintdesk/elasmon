@@ -8,16 +8,17 @@ import { MsToDaysHoursPipe } from '../../pipes/ms-to-days-hours.pipe';
 import { catchError, of, Subscription, switchMap, timer } from 'rxjs';
 import { TooltipModule } from 'primeng/tooltip';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { FormatBytesPipe } from '../../pipes/format-bytes.pipe';
 
 @Component({
   selector: 'node',
-  imports: [ProgressSpinnerModule, MsToDaysHoursPipe, DecimalPipe, TableModule, TooltipModule],
+  imports: [FormatBytesPipe, ProgressSpinnerModule, MsToDaysHoursPipe, DecimalPipe, TableModule, TooltipModule],
   templateUrl: './node.component.html',
   styleUrl: './node.component.css',
 })
 export class NodeComponent implements OnDestroy {
   connection = input<EsConnection>()
-  nodes = signal<EsNode[]>([]);  
+  nodes = signal<EsNode[]>([]);
   loading = signal<boolean>(true);
   hasSearchRejected = computed(() => this.nodes().some(n => n.ThreadPoolSearchRejected > 0));
   hasWriteRejected = computed(() => this.nodes().some(n => n.ThreadPoolWriteRejected > 0));
@@ -81,7 +82,9 @@ export class NodeComponent implements OnDestroy {
             ThreadPoolWriteRejected: node.thread_pool.write.rejected,
             TotalShards: node.indices.shard_stats.total_count,
             ShardsPerGBHeap: node.indices.shard_stats.total_count / (node.jvm.mem.heap_max_in_bytes / (1024 * 1024 * 1024)),
-            Uptime: node.jvm.uptime_in_millis
+            Uptime: node.jvm.uptime_in_millis,
+            HeapMaxInBytes: node.jvm.mem.heap_max_in_bytes,
+            MemTotalInBytes: node.os.mem.total_in_bytes,
           })
         }
         this.nodes.set([...items.sort((a, b) => a.Name.localeCompare(b.Name))]);
