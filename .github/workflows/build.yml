@@ -36,7 +36,7 @@ jobs:
 
       # Step 4: Package Electron (non-tagged commits)
       - name: Package Electron
-        if: ${{ steps.regex-match.outputs.match == '' }}
+        if: startsWith(github.ref, 'refs/tags/') == false
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -45,7 +45,7 @@ jobs:
 
       # Step 5: Package and Publish Electron (tagged commits)
       - name: Package and Publish Electron
-        if: ${{ steps.regex-match.outputs.match != '' }}
+        if: startsWith(github.ref, 'refs/tags/')
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
