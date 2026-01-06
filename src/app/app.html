@@ -19,16 +19,31 @@
     </div>
   </ng-template>
   <ng-template #end>
-    <span class="text-sm text-gray-400">Version {{ version }}</span>
+    <div class="flex items-center gap-3">
+      <span class="text-sm text-gray-400">Version {{ version }}</span>
+      <!-- Hamburger menu button - always visible -->
+      <p-button 
+        [icon]="'pi pi-bars'" 
+        [rounded]="true" 
+        [text]="true" 
+        (onClick)="toggleSidebar()">
+      </p-button>
+    </div>
   </ng-template>
 </p-menubar>
 
 <div class="flex">
-  <div class="w-2/10 p-4">
-    <p-panelMenu [model]="connectionNodes()"></p-panelMenu>
-  </div>
+  <!-- Sidebar: Toggle visibility with hamburger button
+       - Desktop: default visible
+       - Mobile/Tablet: default hidden
+  -->
+  @if (sidebarVisible()) {
+    <div class="w-[20%] min-w-[200px] p-4 max-lg:fixed max-lg:top-[60px] max-lg:left-0 max-lg:h-[calc(100vh-60px)] max-lg:w-[280px] max-lg:min-w-[280px] max-lg:bg-white max-lg:z-[1000] max-lg:overflow-y-auto max-lg:shadow-[2px_0_8px_rgba(0,0,0,0.15)] max-sm:w-full max-sm:min-w-full transition-all duration-300">
+      <p-panelMenu [model]="connectionNodes()"></p-panelMenu>
+    </div>
+  }
 
-  <div class="w-8/10">
+  <div class="flex-1">
     @if (selectedConnectionNode()?.Type == 'Connections') {
       <connections></connections>
     }
