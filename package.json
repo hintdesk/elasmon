@@ -1,6 +1,6 @@
 {
   "name": "elasmon",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Elasticsearch Monitor",
   "main": "electron/main.js",
   "author": "HintDesk",
@@ -33,7 +33,7 @@
           ]
         }
       ],
-      "icon": "build/icon.ico",
+      "icon": "electron/icon.ico",
       "signAndEditExecutable": false
     }
   },

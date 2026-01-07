@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [windows-latest]
 
     steps:
       - name: Check out repository
@@ -30,8 +30,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate icons
-        run: node build/generate-icons.js
+      - name: Build Angular
+        run: npm run build -- --configuration production --base-href ./
 
       # Chạy khi push code bình thường (không phải tag)
       - name: Package Electron
