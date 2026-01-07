@@ -9,10 +9,11 @@ import { DecimalPipe } from '@angular/common';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'index',
-  imports: [ProgressSpinnerModule, FormsModule, ToggleSwitchModule, DecimalPipe, FormatBytesPipe, TableModule],
+  imports: [TooltipModule, ProgressSpinnerModule, FormsModule, ToggleSwitchModule, DecimalPipe, FormatBytesPipe, TableModule],
   templateUrl: './index.component.html',
   styleUrl: './index.component.css',
 })

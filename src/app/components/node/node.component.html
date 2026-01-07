@@ -13,13 +13,13 @@
                     <p-sortIcon field="Name" />
                 </div>
             </th>
-            <th pSortableColumn="Cpu">
+            <th pSortableColumn="Cpu" pTooltip="CPU Usage Percentage. The value should be less than 80." tooltipPosition="top">
                 <div class="flex items-center gap-2">
                     CPU %
                     <p-sortIcon field="Cpu" />
                 </div>
             </th>
-            <th pSortableColumn="Heap">
+            <th pSortableColumn="Heap" pTooltip="Heap Usage Percentage. The value should be less than 85." tooltipPosition="top">
                 <div class="flex items-center gap-2">
                     Heap %
                     <p-sortIcon field="Heap" />
@@ -31,14 +31,14 @@
                     <p-sortIcon field="Memory" />
                 </div>
             </th>
-            <th pSortableColumn="Disk">
+            <th pSortableColumn="Disk" pTooltip="Disk Usage Percentage. The value should be less than 85." tooltipPosition="top">
                 <div class="flex items-center gap-2">
                     Disk %
                     <p-sortIcon field="Disk" />
                 </div>
             </th> 
             @if (hasSearchRejected()) {
-            <th pSortableColumn="ThreadPoolSearchRejected" pTooltip="ThreadPool Search Rejected" tooltipPosition="top">
+            <th pSortableColumn="ThreadPoolSearchRejected" pTooltip="ThreadPool Search Rejected. The value should be 0." tooltipPosition="top">
                 <div class="flex items-center gap-2">
                     Search Rej.
                     <p-sortIcon field="ThreadPoolSearchRejected" />
@@ -46,7 +46,7 @@
             </th> 
             } 
             @if (hasWriteRejected()) {
-            <th pSortableColumn="ThreadPoolWriteRejected" pTooltip="ThreadPool Write Rejected" tooltipPosition="top">
+            <th pSortableColumn="ThreadPoolWriteRejected" pTooltip="ThreadPool Write Rejected. The value should be 0." tooltipPosition="top">
                 <div class="flex items-center gap-2">
                     Write Rej.
                     <p-sortIcon field="ThreadPoolWriteRejected" />
@@ -61,7 +61,7 @@
                 </div>
             </th>
 
-            <th pSortableColumn="ShardsPerGBHeap" pTooltip="Number of shards per GB Heap" tooltipPosition="top">
+            <th pSortableColumn="ShardsPerGBHeap" pTooltip="Number of shards per GB Heap. The rate should be less than 20." tooltipPosition="top">
                 <div class="flex items-center gap-2">
                     Shards/GB Heap
                     <p-sortIcon field="ShardsPerGBHeap" />
