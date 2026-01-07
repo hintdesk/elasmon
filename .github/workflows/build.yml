@@ -27,6 +27,9 @@ jobs:
           node-version: 20
           cache: 'npm'
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Generate icons
         run: node build/generate-icons.js
 
@@ -35,18 +38,14 @@ jobs:
         if: github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm install
-          npx electron-builder --publish never
+        run: npx electron-builder --publish never
 
       # Chạy khi push một tag (v1.0.0, v2.1.0,...)
       - name: Package and Publish Electron
         if: startsWith(github.ref, 'refs/tags/')
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm install
-          npx electron-builder --publish always
+        run: npx electron-builder --publish always
 
       - name: Build Changelog
         if: startsWith(github.ref, 'refs/tags/')
