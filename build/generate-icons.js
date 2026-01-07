@@ -18,7 +18,7 @@ async function generateIcons() {
   const pngToIco = (await import('png-to-ico')).default;
   const pngBuffer = fs.readFileSync(path.join(__dirname, 'icon.png'));
   const icoBuffer = await pngToIco(pngBuffer);
-  fs.writeFileSync(path.join(__dirname, 'icon.ico'), icoBuffer);
+  fs.writeFileSync(path.join(__dirname, '..', 'electron', 'icon.ico'), icoBuffer);
   
   console.log('icon.ico created successfully!');
 }
