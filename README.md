@@ -63,3 +63,9 @@ MIT License
 ## Author
 
 [HintDesk](https://github.com/hintdesk)
+
+## Support
+
+If you find this project helpful, consider supporting its development:
+
+[![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/hintdesk)
