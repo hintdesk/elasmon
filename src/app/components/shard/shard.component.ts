@@ -48,7 +48,7 @@ export class ShardComponent implements OnDestroy {
     this.clusterHealth.set(null);
 
     // Start new subscription
-    this.subscription = timer(0, 10000)
+    this.subscription = timer(0, 20000)
       .pipe(
         switchMap(() => {
           return this.clusterService.getClusterHealth(this.connection()!)

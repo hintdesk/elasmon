@@ -8,10 +8,12 @@ import { NodeService } from '../../services/node.service';
 import { catchError, forkJoin, of, Subscription, switchMap, timer } from 'rxjs';
 import { ClusterHealth } from '../../entities/clusterHealth';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { TooltipModule } from 'primeng/tooltip';
+
 
 @Component({
   selector: 'connection',
-  imports: [ProgressSpinnerModule, TitleCasePipe, DecimalPipe, FormatBytesPipe],
+  imports: [TooltipModule, ProgressSpinnerModule, TitleCasePipe, DecimalPipe, FormatBytesPipe],
   templateUrl: './connection.component.html',
   styleUrl: './connection.component.css',
 })
@@ -70,7 +72,7 @@ export class ConnectionComponent implements OnDestroy {
     this.indexTime.set(0);
 
     // Start new subscription
-    this.subscription = timer(0, 10000)
+    this.subscription = timer(0, 20000)
       .pipe(
         switchMap(() => {
           const clusterStatsRequest = this.elasticService.getClusterStats(this.connection()!);

@@ -56,7 +56,7 @@ export class IndexComponent implements OnDestroy {
     this.indices.set([]);
 
     // Start new subscription
-    this.subscription = timer(0, 10000)
+    this.subscription = timer(0, 20000)
       .pipe(
         switchMap(() => {
           const statsRequest = this.indexService.getStats(this.connection()!);

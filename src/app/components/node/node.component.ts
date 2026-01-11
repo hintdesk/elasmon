@@ -54,7 +54,7 @@ export class NodeComponent implements OnDestroy {
     this.nodes.set([]);
 
     // Start new subscription
-    this.subscription = timer(0, 10000)
+    this.subscription = timer(0, 20000)
       .pipe(
         switchMap(() => {
           return this.nodeService.getNodesStats(this.connection()!)
