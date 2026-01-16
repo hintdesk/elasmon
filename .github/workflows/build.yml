@@ -33,14 +33,6 @@ jobs:
       - name: Build Angular
         run: npm run build -- --configuration production --base-href ./
 
-      # Chạy khi push code bình thường (không phải tag)
-      - name: Package Electron
-        if: github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')
-        env: 
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx electron-builder --publish never
-
-      # Chạy khi push một tag (v1.0.0, v2.1.0,...)
       - name: Package and Publish Electron
         if: startsWith(github.ref, 'refs/tags/')
         env: 
