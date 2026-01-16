@@ -1,6 +1,6 @@
 {
   "name": "elasmon",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Elasticsearch Monitor",
   "main": "electron/main.js",
   "author": "HintDesk",
@@ -34,7 +34,7 @@
         }
       ],
       "icon": "electron/icon.ico",
-      "signAndEditExecutable": false
+      "signAndEditExecutable": true
     }
   },
   "prettier": {
@@ -70,7 +70,7 @@
     "@angular/compiler-cli": "^21.0.0",
     "@tailwindcss/postcss": "^4.1.12",
     "electron": "^39.2.7",
-    "electron-builder": "^26.0.12",
+    "electron-builder": "^26.4.0",
     "jsdom": "^27.1.0",
     "png-to-ico": "^3.0.1",
     "postcss": "^8.5.3",
