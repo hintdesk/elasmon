@@ -33,7 +33,7 @@
           ]
         }
       ],
-          "icon": "electron/icon.ico"
+      "icon": "electron/icon.ico"
     }
   },
   "prettier": {
