@@ -33,8 +33,7 @@
           ]
         }
       ],
-      "icon": "electron/icon.ico",
-      "signAndEditExecutable": true
+          "icon": "electron/icon.ico"
     }
   },
   "prettier": {

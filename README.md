@@ -9,7 +9,7 @@ A standalone desktop application for monitoring Elasticsearch clusters in real-t
 - **Index Management**: Browse all indices with document counts, size, shards, replicas, and ingestion rate tracking
 - **Shard Health**: Monitor active, primary, relocating, initializing, and unassigned shards
 - **Multiple Connections**: Manage and switch between multiple Elasticsearch clusters
-- **Auto Refresh**: Data automatically refreshes every 10 seconds
+- **Auto Refresh**: Data automatically refreshes every 20 seconds
 
 ## Screenshots
 
