@@ -1,4 +1,4 @@
-<div class="p-4">
+<div class="p-4 overflow-x-auto">
     <div>
         <h2 class="text-xl font-bold mb-4 px-4">{{ connection()?.Name }} - Indices</h2>
     </div>
@@ -13,82 +13,84 @@
         <p-progressSpinner strokeWidth="4" />
     </div>
     } @else {
-    <p-table class="p-4" [value]="indices()">
-        <ng-template #header>
-            <tr>
-                <th pSortableColumn="Name">
-                    <div class="flex items-center gap-2">
-                        Name
-                        <p-sortIcon field="Name" />
-                    </div>
-                </th>
-                <th pSortableColumn="Documents">
-                    <div class="flex items-center gap-2">
-                        Documents
-                        <p-sortIcon field="Documents" />
-                    </div>
-                </th>
-                <th pSortableColumn="Size" pTooltip="Total size of index (primary only)" tooltipPosition="top">
-                    <div class="flex items-center gap-2">
-                        Size
-                        <p-sortIcon field="Size" />
-                    </div>
-                </th>
-                <th pSortableColumn="Shards">
-                    <div class="flex items-center gap-2">
-                        Shards
-                        <p-sortIcon field="Shards" />
-                    </div>
-                </th>
+    <div class="overflow-x-auto">
+        <p-table class="p-4 min-w-max" [value]="indices()">
+            <ng-template #header>
+                <tr>
+                    <th pSortableColumn="Name">
+                        <div class="flex items-center gap-2">
+                            Name
+                            <p-sortIcon field="Name" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="Documents">
+                        <div class="flex items-center gap-2">
+                            Documents
+                            <p-sortIcon field="Documents" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="Size" pTooltip="Total size of index (primary only)" tooltipPosition="top">
+                        <div class="flex items-center gap-2">
+                            Size
+                            <p-sortIcon field="Size" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="Shards">
+                        <div class="flex items-center gap-2">
+                            Shards
+                            <p-sortIcon field="Shards" />
+                        </div>
+                    </th>
 
-                <th pSortableColumn="GBPerShard" pTooltip="Number of GB per Shard. The rate should be less than 30."
-                    tooltipPosition="top">
-                    <div class="flex items-center gap-2">
-                        GB/Shard
-                        <p-sortIcon field="GBPerShard" />
-                    </div>
-                </th>
+                    <th pSortableColumn="GBPerShard" pTooltip="Number of GB per Shard. The rate should be less than 30."
+                        tooltipPosition="top">
+                        <div class="flex items-center gap-2">
+                            GB/Shard
+                            <p-sortIcon field="GBPerShard" />
+                        </div>
+                    </th>
 
-                <th pSortableColumn="Replicas">
-                    <div class="flex items-center gap-2">
-                        Replicas
-                        <p-sortIcon field="Replicas" />
-                    </div>
-                </th>
-                <th pSortableColumn="Ingested">
-                    <div class="flex items-center gap-2">
-                        Ingested
-                        <p-sortIcon field="Ingested" />
-                    </div>
-                </th>
-                <th pSortableColumn="Rate">
-                    <div class="flex items-center gap-2">
-                        Rate
-                        <p-sortIcon field="Rate" />
-                    </div>
-                </th>
-            </tr>
-        </ng-template>
+                    <th pSortableColumn="Replicas">
+                        <div class="flex items-center gap-2">
+                            Replicas
+                            <p-sortIcon field="Replicas" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="Ingested">
+                        <div class="flex items-center gap-2">
+                            Ingested
+                            <p-sortIcon field="Ingested" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="Rate">
+                        <div class="flex items-center gap-2">
+                            Rate
+                            <p-sortIcon field="Rate" />
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
 
-        <ng-template #body let-esIndex>
-            <tr>
-                <td>{{ esIndex.Name }}</td>
-                <td>{{ esIndex.Documents }}</td>
-                <td>{{ esIndex.Size | formatBytes}}</td>
-                <td>{{ esIndex.Shards }}</td>
-                <td [class]="esIndex.GBPerShard > 30 ? 'text-red-500 font-bold' : ''">{{ esIndex.GBPerShard ?
-                    (esIndex.GBPerShard | number:'1.2-2') : '' }}</td>
-                <td>{{ esIndex.Replicas }}</td>
-                @if (esIndex.Ingested >0 ){
-                <td>{{ esIndex.Ingested }}</td>
-                <td>{{ esIndex.Rate | number:'1.2-2' }}</td>
-                }
-                @else {
-                <td></td>
-                <td></td>
-                }
-            </tr>
-        </ng-template>
-    </p-table>
+            <ng-template #body let-esIndex>
+                <tr>
+                    <td>{{ esIndex.Name }}</td>
+                    <td>{{ esIndex.Documents }}</td>
+                    <td>{{ esIndex.Size | formatBytes}}</td>
+                    <td>{{ esIndex.Shards }}</td>
+                    <td [class]="esIndex.GBPerShard > 30 ? 'text-red-500 font-bold' : ''">{{ esIndex.GBPerShard ?
+                        (esIndex.GBPerShard | number:'1.2-2') : '' }}</td>
+                    <td>{{ esIndex.Replicas }}</td>
+                    @if (esIndex.Ingested >0 ){
+                    <td>{{ esIndex.Ingested }}</td>
+                    <td>{{ esIndex.Rate | number:'1.2-2' }}</td>
+                    }
+                    @else {
+                    <td></td>
+                    <td></td>
+                    }
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
     }
 </div>
