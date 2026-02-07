@@ -62,4 +62,37 @@ export class ConnectionsComponent {
     this.connections.update(connections => connections.filter(c => c.Id !== connection.Id));
     this.connectionService.save();
   }
+
+  moveUp(connection: EsConnection) {
+    const currentConnections = this.connections();
+    const index = currentConnections.findIndex(c => c.Id === connection.Id);
+    
+    if (index > 0) {
+      const newConnections = [...currentConnections];
+      [newConnections[index], newConnections[index - 1]] = [newConnections[index - 1], newConnections[index]];
+      this.connections.set(newConnections);
+      this.connectionService.save();
+    }
+  }
+
+  moveDown(connection: EsConnection) {
+    const currentConnections = this.connections();
+    const index = currentConnections.findIndex(c => c.Id === connection.Id);
+    
+    if (index < currentConnections.length - 1) {
+      const newConnections = [...currentConnections];
+      [newConnections[index], newConnections[index + 1]] = [newConnections[index + 1], newConnections[index]];
+      this.connections.set(newConnections);
+      this.connectionService.save();
+    }
+  }
+
+  isFirstItem(connection: EsConnection): boolean {
+    return this.connections()[0]?.Id === connection.Id;
+  }
+
+  isLastItem(connection: EsConnection): boolean {
+    const connections = this.connections();
+    return connections[connections.length - 1]?.Id === connection.Id;
+  }
 }

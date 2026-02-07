@@ -77,7 +77,11 @@
             <td>{{ conn.Username }}</td>
             <td>****</td>
             <td>
-                <p-button rounded severity="secondary" (click)="delete(conn)" icon="pi pi-trash"></p-button>
+                <div class="flex gap-2 justify-center">
+                    <p-button rounded severity="secondary" (click)="moveUp(conn)" icon="pi pi-arrow-up" [disabled]="isFirstItem(conn)"></p-button>
+                    <p-button rounded severity="secondary" (click)="moveDown(conn)" icon="pi pi-arrow-down" [disabled]="isLastItem(conn)"></p-button>
+                    <p-button rounded severity="secondary" (click)="delete(conn)" icon="pi pi-trash"></p-button>
+                </div>
             </td>
         </tr>
     </ng-template>
