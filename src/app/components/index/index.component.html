@@ -56,16 +56,28 @@
                             <p-sortIcon field="Replicas" />
                         </div>
                     </th>
-                    <th pSortableColumn="Ingested">
+                    <th pSortableColumn="IndexingRate" pTooltip="Number of documents indexed per second" tooltipPosition="top">
                         <div class="flex items-center gap-2">
-                            Ingested
-                            <p-sortIcon field="Ingested" />
+                            Indexing Rate
+                            <p-sortIcon field="IndexingRate" />
                         </div>
                     </th>
-                    <th pSortableColumn="Rate">
+                    <th pSortableColumn="SearchRate" pTooltip="Number of search queries per second" tooltipPosition="top">
                         <div class="flex items-center gap-2">
-                            Rate
-                            <p-sortIcon field="Rate" />
+                            Search Rate
+                            <p-sortIcon field="SearchRate" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="IndexingLatency" pTooltip="Average time to index a document (ms)" tooltipPosition="top">
+                        <div class="flex items-center gap-2">
+                            Indexing Latency
+                            <p-sortIcon field="IndexingLatency" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="SearchLatency" pTooltip="Average time to execute a search (ms)" tooltipPosition="top">
+                        <div class="flex items-center gap-2">
+                            Search Latency
+                            <p-sortIcon field="SearchLatency" />
                         </div>
                     </th>
                 </tr>
@@ -80,14 +92,10 @@
                     <td [class]="esIndex.GBPerShard > 30 ? 'text-red-500 font-bold' : ''">{{ esIndex.GBPerShard ?
                         (esIndex.GBPerShard | number:'1.2-2') : '' }}</td>
                     <td>{{ esIndex.Replicas }}</td>
-                    @if (esIndex.Ingested >0 ){
-                    <td>{{ esIndex.Ingested }}</td>
-                    <td>{{ esIndex.Rate | number:'1.2-2' }}</td>
-                    }
-                    @else {
-                    <td></td>
-                    <td></td>
-                    }
+                    <td>{{ esIndex.IndexingRate != null ? (esIndex.IndexingRate | number:'1.0-0') : '' }}</td>
+                    <td>{{ esIndex.SearchRate != null ? (esIndex.SearchRate | number:'1.0-0') : '' }}</td>
+                    <td>{{ esIndex.IndexingLatency != null ? (esIndex.IndexingLatency | number:'1.2-2') : '' }}</td>
+                    <td>{{ esIndex.SearchLatency != null ? (esIndex.SearchLatency | number:'1.2-2') : '' }}</td>
                 </tr>
             </ng-template>
         </p-table>

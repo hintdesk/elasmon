@@ -85,13 +85,24 @@ export class IndexComponent implements OnDestroy {
             GBPerShard: (item.primaries.store.size_in_bytes / (1024 * 1024 * 1024)) / item.primaries.shard_stats.total_count,
             Replicas: data.catIndices.find((catIndex: any) => catIndex.index === indexName)?.rep ?? 0,
             ConnectionId: this.connection()!.Id,
-            Ingested: 0
+            IndexingRate: (item.total?.indexing?.index_total && item.total?.indexing?.index_time_in_millis) 
+              ? item.total.indexing.index_total / (item.total.indexing.index_time_in_millis / 1000) 
+              : undefined,
+            SearchRate: (item.total?.search?.query_total && item.total?.search?.query_time_in_millis) 
+              ? item.total.search.query_total / (item.total.search.query_time_in_millis / 1000) 
+              : undefined,
+            IndexingLatency: (item.total?.indexing?.index_time_in_millis && item.total?.indexing?.index_total) 
+              ? item.total.indexing.index_time_in_millis / item.total.indexing.index_total 
+              : undefined,
+            SearchLatency: (item.total?.search?.query_time_in_millis && item.total?.search?.query_total) 
+              ? item.total.search.query_time_in_millis / item.total.search.query_total 
+              : undefined
           };
-          const cacheItem = this.indexService.getIngested(index);
-          if (cacheItem && cacheItem.Documents != index.Documents) {
-            index.Ingested = index.Documents - cacheItem.Documents;
-            index.Rate = index.Ingested / (Date.now() - cacheItem.Timestamp) * 1000;
-          }
+          // const cacheItem = this.indexService.getIngested(index);
+          // if (cacheItem && cacheItem.Documents != index.Documents) {
+          //   index.Ingested = index.Documents - cacheItem.Documents;
+          //   index.Rate = index.Ingested / (Date.now() - cacheItem.Timestamp) * 1000;
+          // }
           items.push(index);
         }
         this.allIndices = items.sort((a, b) => a.Name.localeCompare(b.Name));
