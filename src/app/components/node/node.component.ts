@@ -85,6 +85,18 @@ export class NodeComponent implements OnDestroy {
             Uptime: node.jvm.uptime_in_millis,
             HeapMaxInBytes: node.jvm.mem.heap_max_in_bytes,
             MemTotalInBytes: node.os.mem.total_in_bytes,
+            IndexingRate: (node.indices?.indexing?.index_total && node.indices?.indexing?.index_time_in_millis)
+              ? node.indices.indexing.index_total / (node.indices.indexing.index_time_in_millis / 1000)
+              : undefined,
+            SearchRate: (node.indices?.search?.query_total && node.indices?.search?.query_time_in_millis)
+              ? node.indices.search.query_total / (node.indices.search.query_time_in_millis / 1000)
+              : undefined,
+            IndexingLatency: (node.indices?.indexing?.index_time_in_millis && node.indices?.indexing?.index_total)
+              ? node.indices.indexing.index_time_in_millis / node.indices.indexing.index_total
+              : undefined,
+            SearchLatency: (node.indices?.search?.query_time_in_millis && node.indices?.search?.query_total)
+              ? node.indices.search.query_time_in_millis / node.indices.search.query_total
+              : undefined,
           })
         }
         this.nodes.set([...items.sort((a, b) => a.Name.localeCompare(b.Name))]);

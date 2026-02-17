@@ -11,4 +11,8 @@ export class EsNode {
     ShardsPerGBHeap!: number;
     HeapMaxInBytes!: number;
     MemTotalInBytes!: number;
+    IndexingRate?: number;
+    SearchRate?: number;
+    IndexingLatency?: number;
+    SearchLatency?: number;
 }
