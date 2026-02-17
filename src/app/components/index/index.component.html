@@ -2,10 +2,24 @@
     <div>
         <h2 class="text-xl font-bold mb-4 px-4">{{ connection()?.Name }} - Indices</h2>
     </div>
-    <div class="flex items-center justify-end mb-4">
-        <label for="showHiddenIndices" class="font-semibold mr-2">Show Hidden Indices</label>
-        <p-toggleSwitch (onChange)="showHiddenIndices($event)" inputId="showHiddenIndices"
-            [(ngModel)]="showHidden"></p-toggleSwitch>
+    <div class="flex items-center justify-between mb-4 gap-4 px-4">
+        <div class="flex-1">
+            <p-iconfield>
+                <p-inputicon styleClass="pi pi-search" />
+                <input type="text" pInputText placeholder="Filter by index name..." 
+                    [(ngModel)]="searchText" 
+                    (ngModelChange)="onSearchChange()" 
+                    class="w-full" />
+                @if (searchText) {
+                <p-inputicon styleClass="pi pi-times cursor-pointer" (click)="clearSearch()" />
+                }
+            </p-iconfield>
+        </div>
+        <div class="flex items-center">
+            <label for="showHiddenIndices" class="font-semibold mr-2">Show Hidden Indices</label>
+            <p-toggleSwitch (onChange)="showHiddenIndices($event)" inputId="showHiddenIndices"
+                [(ngModel)]="showHidden"></p-toggleSwitch>
+        </div>
     </div>
 
     @if (loading()) {

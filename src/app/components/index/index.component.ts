@@ -10,10 +10,13 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @Component({
   selector: 'index',
-  imports: [TooltipModule, ProgressSpinnerModule, FormsModule, ToggleSwitchModule, DecimalPipe, FormatBytesPipe, TableModule],
+  imports: [InputIconModule, IconFieldModule, InputTextModule, TooltipModule, ProgressSpinnerModule, FormsModule, ToggleSwitchModule, DecimalPipe, FormatBytesPipe, TableModule],
   templateUrl: './index.component.html',
   styleUrl: './index.component.css',
 })
@@ -22,6 +25,7 @@ export class IndexComponent implements OnDestroy {
   indices = signal<EsIndex[]>([]);
   allIndices: EsIndex[] = [];
   showHidden: boolean = false;
+  searchText: string = '';
   loading = signal<boolean>(true);
 
   private subscription: Subscription | null = null;
@@ -115,12 +119,30 @@ export class IndexComponent implements OnDestroy {
     this.filterIndices();
   }
 
+  onSearchChange() {
+    this.filterIndices();
+  }
+
+  clearSearch() {
+    this.searchText = '';
+    this.filterIndices();
+  }
+
   private filterIndices() {
-    if (this.showHidden) {
-      this.indices.set(this.allIndices);
-    } else {
-      this.indices.set(this.allIndices.filter(index => !index.Name.startsWith('.')));
+    let filtered = this.allIndices;
+    
+    // Filter by hidden indices
+    if (!this.showHidden) {
+      filtered = filtered.filter(index => !index.Name.startsWith('.'));
     }
+    
+    // Filter by search text
+    if (this.searchText && this.searchText.trim() !== '') {
+      const searchLower = this.searchText.toLowerCase();
+      filtered = filtered.filter(index => index.Name.toLowerCase().includes(searchLower));
+    }
+    
+    this.indices.set(filtered);
   }
 
 }
