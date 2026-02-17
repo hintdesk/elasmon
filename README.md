@@ -19,6 +19,12 @@ A standalone desktop application for monitoring Elasticsearch clusters in real-t
 ### Cluster Statistics
 ![Cluster Statistics](readme/2.png)
 
+### Node Statistics
+![Node Statistics](readme/4.png)
+
+### Indices Statistics
+![Indices Statistics](readme/5.png)
+
 ## Tech Stack
 
 - **Frontend**: Angular 21, PrimeNG 21, Tailwind CSS 4
