@@ -53,7 +53,6 @@ jobs:
             release/*.dmg
             release/*.AppImage
             release/*.deb
-            release/*.tar.gz
           if-no-files-found: error
 
   release:
