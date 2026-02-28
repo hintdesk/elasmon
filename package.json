@@ -12,7 +12,10 @@
     "test": "ng test",
     "electron": "electron .",
     "electron:dev": "ng build && electron .",
-    "electron:build": "ng build --configuration production --base-href ./ && electron-builder build --win"
+    "electron:build": "ng build --configuration production --base-href ./ && electron-builder build --win",
+    "electron:build:mac": "ng build --configuration production --base-href ./ && electron-builder build --mac",
+    "electron:build:linux": "ng build --configuration production --base-href ./ && electron-builder build --linux",
+    "electron:build:all": "ng build --configuration production --base-href ./ && electron-builder build --win --mac --linux"
   },
   "build": {
     "appId": "com.hintdesk.elasmon",
@@ -34,6 +37,50 @@
         }
       ],
       "icon": "electron/icon.ico"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "electron/icon.png",
+      "category": "public.app-category.developer-tools"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "tar.gz",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "electron/icon.png",
+      "category": "Development"
     }
   },
   "prettier": {
