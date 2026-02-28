@@ -15,7 +15,7 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  build:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -38,28 +38,52 @@ jobs:
       - name: Build Angular
         run: npm run build -- --configuration production --base-href ./
 
+      - name: Package Electron app
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+        run: npx electron-builder --publish never
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.os }}
+          path: |
+            release/*.exe
+            release/*.zip
+            release/*.dmg
+            release/*.AppImage
+            release/*.deb
+            release/*.tar.gz
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
       - name: Set Release Tag
-        id: vars
         shell: bash
         run: |
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "RELEASE_TAG=${{ github.event.inputs.tag_name }}" >> $GITHUB_ENV
-            echo "IS_RELEASE=true" >> $GITHUB_ENV
-          elif [[ "${{ github.ref }}" == refs/tags/* ]]; then
-            echo "RELEASE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV
-            echo "IS_RELEASE=true" >> $GITHUB_ENV
           else
-            echo "IS_RELEASE=false" >> $GITHUB_ENV
+            echo "RELEASE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV
           fi
 
-      - name: Package and Publish Electron
-        if: env.IS_RELEASE == 'true'
-        env: 
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx electron-builder --publish always
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: List artifacts
+        run: ls -R artifacts/
 
       - name: Build Changelog
-        if: env.IS_RELEASE == 'true' && matrix.os == 'windows-latest'
         id: changelog
         uses: ardalanamini/auto-changelog@v4
         with:
@@ -68,11 +92,11 @@ jobs:
           include-compare-link: false
           semver: false
 
-      - name: Update GitHub Release
-        if: env.IS_RELEASE == 'true' && matrix.os == 'windows-latest'
+      - name: Create GitHub Release
         uses: ncipollo/release-action@v1.20.0
         with:
-          body: ${{ steps.changelog.outputs.changelog }} 
+          body: ${{ steps.changelog.outputs.changelog }}
+          artifacts: "artifacts/*"
           allowUpdates: true
           tag: ${{ env.RELEASE_TAG }}
           name: Release ${{ env.RELEASE_TAG }}
