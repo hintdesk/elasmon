@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "description": "Elasticsearch Monitor",
   "main": "electron/main.js",
-  "author": "HintDesk",
+  "author": {
+    "name": "HintDesk",
+    "email": "hintdesk@gmail.com"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
