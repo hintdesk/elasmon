@@ -6,16 +6,18 @@ import { DialogModule } from 'primeng/dialog';
 import { FormsModule, NgForm } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConnectionService } from '../../services/connection.service';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'connections',
-  imports: [InputTextModule, FormsModule, DialogModule, ButtonModule, TableModule],
+  imports: [InputTextModule, PasswordModule, FormsModule, DialogModule, ButtonModule, TableModule],
   templateUrl: './connections.component.html',
   styleUrl: './connections.component.css',
 })
 export class ConnectionsComponent {
   connections = signal<EsConnection[]>([]);
   isVisible: boolean = false;
+  editingConnectionId: string | null = null;
   name: string = "";
   host: string = "";
   username: string = "";
@@ -26,7 +28,25 @@ export class ConnectionsComponent {
   }
 
   newConnection() {
+    this.editingConnectionId = null;
+    this.name = '';
+    this.host = '';
+    this.username = '';
+    this.password = '';
     this.isVisible = true;
+  }
+
+  editConnection(connection: EsConnection) {
+    this.editingConnectionId = connection.Id;
+    this.name = connection.Name;
+    this.host = connection.Host;
+    this.username = connection.Username;
+    this.password = '';
+    this.isVisible = true;
+  }
+
+  get dialogHeader(): string {
+    return this.editingConnectionId ? 'Edit Connection' : 'New Connection';
   }
 
   save(form: NgForm) {
@@ -40,21 +60,40 @@ export class ConnectionsComponent {
     
     // Form is valid, proceed with save
     const host = this.host.endsWith('/') ? this.host.slice(0, -1) : this.host;
-    const newConnection: EsConnection = {
-      Id: crypto.randomUUID(),
-      Name: this.name,
-      Host: host,
-      Username: this.username,
-      Password: this.password
-    };
-    this.connections.update(connections => [...connections, newConnection]);
+    if (this.editingConnectionId) {
+      this.connections.update(connections =>
+        connections.map(connection =>
+          connection.Id === this.editingConnectionId
+            ? {
+                ...connection,
+                Name: this.name,
+                Host: host,
+                Username: this.username,
+                Password: this.password || connection.Password,
+              }
+            : connection
+        )
+      );
+    } else {
+      const newConnection: EsConnection = {
+        Id: crypto.randomUUID(),
+        Name: this.name,
+        Host: host,
+        Username: this.username,
+        Password: this.password,
+      };
+      this.connections.update(connections => [...connections, newConnection]);
+    }
+
     this.connectionService.save();
     form.resetForm();
+    this.editingConnectionId = null;
     this.isVisible = false;
   }
 
   cancel(form: NgForm) {
     form.resetForm();
+    this.editingConnectionId = null;
     this.isVisible = false;
   }
 

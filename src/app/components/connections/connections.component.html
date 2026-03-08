@@ -2,7 +2,7 @@
 <div class="flex justify-end mb-4">
     <p-button (onClick)="newConnection()" label="New Connection"></p-button>
 </div>
-<p-dialog [closable]="false" [(visible)]="isVisible" [modal]="true" [style]="{ width: '600px' }" header="New Connection"
+<p-dialog [closable]="false" [(visible)]="isVisible" [modal]="true" [style]="{ width: '600px' }" [header]="dialogHeader"
     (onHide)="isVisible = false">
     <form #connectionForm="ngForm" (ngSubmit)="save(connectionForm)">
         <div class="flex items-center gap-4 mb-4">
@@ -31,10 +31,14 @@
         }
         <div class="flex items-center gap-4 mb-4">
             <label for="Password" class="font-semibold w-24">Password</label>
-            <input pInputText id="Password" name="password" class="flex-auto" type="password" 
-                [(ngModel)]="password" #passwordField="ngModel" required />
+            <div class="flex-auto">
+                @if (isVisible) {
+                    <p-password inputId="Password" name="password" styleClass="w-full" [inputStyleClass]="'w-full'" [feedback]="false" [toggleMask]="true" [fluid]="true"
+                        [(ngModel)]="password" #passwordField="ngModel" [required]="!editingConnectionId" autocomplete="off" />
+                }
+            </div>
         </div>
-        @if (passwordField.invalid && connectionForm.submitted) {
+        @if (!editingConnectionId && passwordField.invalid && connectionForm.submitted) {
             <small class="text-red-500 mb-2 block">Password is required</small>
         }
         <div class="flex justify-end gap-2">
@@ -80,6 +84,7 @@
                 <div class="flex gap-2 justify-center">
                     <p-button rounded severity="secondary" (click)="moveUp(conn)" icon="pi pi-arrow-up" [disabled]="isFirstItem(conn)"></p-button>
                     <p-button rounded severity="secondary" (click)="moveDown(conn)" icon="pi pi-arrow-down" [disabled]="isLastItem(conn)"></p-button>
+                    <p-button rounded severity="secondary" (click)="editConnection(conn)" icon="pi pi-pencil"></p-button>
                     <p-button rounded severity="secondary" (click)="delete(conn)" icon="pi pi-trash"></p-button>
                 </div>
             </td>
