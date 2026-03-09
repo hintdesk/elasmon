@@ -35,12 +35,12 @@
                 @if (isVisible) {
                     <p-password inputId="Password" name="password" styleClass="w-full" [inputStyleClass]="'w-full'" [feedback]="false" [toggleMask]="true" [fluid]="true"
                         [(ngModel)]="password" #passwordField="ngModel" [required]="!editingConnectionId" autocomplete="off" />
+                    @if (!editingConnectionId && passwordField.invalid && connectionForm.submitted) {
+                        <small class="text-red-500 mb-2 block">Password is required</small>
+                    }
                 }
             </div>
         </div>
-        @if (!editingConnectionId && passwordField.invalid && connectionForm.submitted) {
-            <small class="text-red-500 mb-2 block">Password is required</small>
-        }
         <div class="flex justify-end gap-2">
             <p-button label="Cancel" severity="secondary" (click)="cancel(connectionForm)" />
             <p-button label="Save" type="submit" />

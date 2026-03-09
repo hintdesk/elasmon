@@ -18,7 +18,7 @@ const DESKTOP_BREAKPOINT = 1024; // Tailwind lg breakpoint
 
 @Component({
   selector: 'app-root',
-  imports: [ConnectionsComponent, PanelMenuModule, ButtonModule, ShardComponent, IndexComponent, NodeComponent, SplitterModule, ConnectionComponent, MenubarModule, RouterOutlet],
+  imports: [ConnectionsComponent, PanelMenuModule, ButtonModule, ShardComponent, IndexComponent, NodeComponent, SplitterModule, ConnectionComponent, MenubarModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
