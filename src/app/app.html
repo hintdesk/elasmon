@@ -65,6 +65,10 @@
     @if (selectedConnectionNode()?.Type == 'Shard') {
     <shard [connection]="selectedConnectionNode()"></shard>
     }
+
+    @if (selectedConnectionNode()?.Type == 'ThreadPool') {
+    <threadpool [connection]="selectedConnectionNode()"></threadpool>
+    }
   </div>
 </div>
 

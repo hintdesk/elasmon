@@ -1,0 +1,59 @@
+<div class="p-4 overflow-x-auto">
+    <div>
+        <h2 class="text-xl font-bold mb-4 px-4">{{ connection()?.Name }} - Thread Pools</h2>
+    </div>
+    @if (loading()) {
+    <div class="flex justify-center items-center h-64">
+        <p-progressSpinner strokeWidth="4" />
+    </div>
+    } @else {
+    <div class="overflow-x-auto">
+        <p-table class="p-4 min-w-max" [value]="threadPools()">
+            <ng-template #header>
+                <tr>
+                    <th pSortableColumn="Node">
+                        <div class="flex items-center gap-2">
+                            Node
+                            <p-sortIcon field="Node" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="Name">
+                        <div class="flex items-center gap-2">
+                            Name
+                            <p-sortIcon field="Name" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="Active">
+                        <div class="flex items-center gap-2">
+                            Active
+                            <p-sortIcon field="Active" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="Queue">
+                        <div class="flex items-center gap-2">
+                            Queue
+                            <p-sortIcon field="Queue" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="Rejected">
+                        <div class="flex items-center gap-2">
+                            Rejected
+                            <p-sortIcon field="Rejected" />
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template #body let-threadPool>
+                <tr>
+                    <td>{{ threadPool.Node }}</td>
+                    <td>{{ threadPool.Name }}</td>
+                    <td>{{ threadPool.Active }}</td>
+                    <td>{{ threadPool.Queue }}</td>
+                    <td [class]="threadPool.Rejected >= 1 ? 'text-red-500 font-bold' : ''">{{ threadPool.Rejected }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    }
+</div>

@@ -5,8 +5,6 @@ export class EsNode {
     Heap!: number;
     Disk!: number;
     Uptime!: number;
-    ThreadPoolSearchRejected!: number;
-    ThreadPoolWriteRejected!: number;
     TotalShards!: number;
     ShardsPerGBHeap!: number;
     HeapMaxInBytes!: number;

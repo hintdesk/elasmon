@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, OnDestroy, signal } from '@angular/core';
+import { Component, effect, input, OnDestroy, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { EsConnection } from '../../entities/esConnection';
 import { NodeService } from '../../services/node.service';
@@ -20,8 +20,6 @@ export class NodeComponent implements OnDestroy {
   connection = input<EsConnection>()
   nodes = signal<EsNode[]>([]);
   loading = signal<boolean>(true);
-  hasSearchRejected = computed(() => this.nodes().some(n => n.ThreadPoolSearchRejected > 0));
-  hasWriteRejected = computed(() => this.nodes().some(n => n.ThreadPoolWriteRejected > 0));
 
   private subscription: Subscription | null = null;
 
@@ -78,8 +76,6 @@ export class NodeComponent implements OnDestroy {
             Memory: node.os.mem.used_percent,
             Heap: node.jvm.mem.heap_used_percent,
             Disk: (1 - node.fs.total.available_in_bytes / node.fs.total.total_in_bytes) * 100,
-            ThreadPoolSearchRejected: node.thread_pool.search.rejected,
-            ThreadPoolWriteRejected: node.thread_pool.write.rejected,
             TotalShards: node.indices.shard_stats.total_count,
             ShardsPerGBHeap: node.indices.shard_stats.total_count / (node.jvm.mem.heap_max_in_bytes / (1024 * 1024 * 1024)),
             Uptime: node.jvm.uptime_in_millis,

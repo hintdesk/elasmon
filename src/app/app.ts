@@ -6,6 +6,7 @@ import { SplitterModule } from 'primeng/splitter';
 import { NodeComponent } from './components/node/node.component';
 import { IndexComponent } from './components/index/index.component';
 import { ShardComponent } from './components/shard/shard.component';
+import { Threadpool } from './components/threadpool/threadpool';
 import { MenuItem } from 'primeng/api';
 import { EsConnection } from './entities/esConnection';
 import { ButtonModule } from 'primeng/button';
@@ -18,7 +19,7 @@ const DESKTOP_BREAKPOINT = 1024; // Tailwind lg breakpoint
 
 @Component({
   selector: 'app-root',
-  imports: [ConnectionsComponent, PanelMenuModule, ButtonModule, ShardComponent, IndexComponent, NodeComponent, SplitterModule, ConnectionComponent, MenubarModule],
+  imports: [ConnectionsComponent, PanelMenuModule, ButtonModule, Threadpool, ShardComponent, IndexComponent, NodeComponent, SplitterModule, ConnectionComponent, MenubarModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -66,6 +67,12 @@ export class App implements OnInit {
           label: "Shards",
           icon: 'pi pi-th-large',
           command: () => this.onConnectionNodeSelected(conn, "Shard"),
+        },
+        {
+          key: conn.Id + "_TP",
+          label: "Thread Pools",
+          icon: 'pi pi-chart-bar',
+          command: () => this.onConnectionNodeSelected(conn, "ThreadPool"),
         }]
     }));
 
