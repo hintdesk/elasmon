@@ -8,22 +8,30 @@ A standalone desktop application for monitoring Elasticsearch clusters in real-t
 - **Node Statistics**: View detailed node metrics including CPU, heap, memory, disk usage, thread pool rejections, shards per node, and uptime
 - **Index Management**: Browse all indices with document counts, size, shards, replicas, and ingestion rate tracking
 - **Shard Health**: Monitor active, primary, relocating, initializing, and unassigned shards
+- **Thread Pools Monitoring**: Track Elasticsearch thread pools by node with active, queue, and rejected task counts to quickly spot bottlenecks
 - **Multiple Connections**: Manage and switch between multiple Elasticsearch clusters
 - **Auto Refresh**: Data automatically refreshes every 20 seconds
 
 ## Screenshots
 
 ### Clusters Dashboard
-![Clusters Dashboard](readme/1.png)
+![Clusters Dashboard](readme/connections.png)
 
 ### Cluster Statistics
-![Cluster Statistics](readme/2.png)
+![Cluster Statistics](readme/connection.png)
 
 ### Node Statistics
-![Node Statistics](readme/4.png)
+![Node Statistics](readme/nodes.png)
 
 ### Indices Statistics
-![Indices Statistics](readme/5.png)
+![Indices Statistics](readme/indices.png)
+
+### Shards Statistics
+![Shards Statistics](readme/indices.png)
+
+### Thread Pools Statistics
+![Thread Pools Statistics](readme/threadpools.png)
+
 
 ## Tech Stack
 
@@ -61,6 +69,7 @@ The built application will be available in the `release/win-unpacked` folder.
    - URL: Elasticsearch cluster URL (e.g., `http://localhost:9200`)
    - Username/Password: Authentication credentials
 4. Click Save and select the connection to start monitoring
+5. Open **Thread Pools** to inspect per-node thread pool load, queue depth, and rejected tasks in real time
 
 ## License
 
