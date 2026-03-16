@@ -9,8 +9,8 @@ import { EsThreadPool } from '../../entities/esThreadPool';
 @Component({
   selector: 'threadpool',
   imports: [ProgressSpinnerModule, TableModule],
-  templateUrl: './threadpool.html',
-  styleUrl: './threadpool.css',
+  templateUrl: './threadpool.component.html',
+  styleUrl: './threadpool.component.css',
 })
 export class Threadpool implements OnDestroy {
   connection = input<EsConnection>();

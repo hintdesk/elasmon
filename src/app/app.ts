@@ -6,7 +6,7 @@ import { SplitterModule } from 'primeng/splitter';
 import { NodeComponent } from './components/node/node.component';
 import { IndexComponent } from './components/index/index.component';
 import { ShardComponent } from './components/shard/shard.component';
-import { Threadpool } from './components/threadpool/threadpool';
+import { Threadpool } from './components/threadpool/threadpool.component';
 import { MenuItem } from 'primeng/api';
 import { EsConnection } from './entities/esConnection';
 import { ButtonModule } from 'primeng/button';

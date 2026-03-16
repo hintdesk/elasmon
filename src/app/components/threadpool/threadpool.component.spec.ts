@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
-import { Threadpool } from './threadpool';
+import { Threadpool } from './threadpool.component';
 
 describe('Threadpool', () => {
   let component: Threadpool;
