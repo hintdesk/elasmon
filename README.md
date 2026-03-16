@@ -27,7 +27,7 @@ A standalone desktop application for monitoring Elasticsearch clusters in real-t
 ![Indices Statistics](readme/indices.png)
 
 ### Shards Statistics
-![Shards Statistics](readme/indices.png)
+![Shards Statistics](readme/shards.png)
 
 ### Thread Pools Statistics
 ![Thread Pools Statistics](readme/threadpools.png)
