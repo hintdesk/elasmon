@@ -63,16 +63,16 @@ export class App implements OnInit {
           command: () => this.onConnectionNodeSelected(conn, "Index"),
         },
         {
-          key: conn.Id + "_S",
-          label: "Shards",
-          icon: 'pi pi-th-large',
-          command: () => this.onConnectionNodeSelected(conn, "Shard"),
-        },
-        {
           key: conn.Id + "_TP",
           label: "Thread Pools",
           icon: 'pi pi-chart-bar',
           command: () => this.onConnectionNodeSelected(conn, "ThreadPool"),
+        },
+        {
+          key: conn.Id + "_S",
+          label: "Shards",
+          icon: 'pi pi-th-large',
+          command: () => this.onConnectionNodeSelected(conn, "Shard"),
         }]
     }));
 
