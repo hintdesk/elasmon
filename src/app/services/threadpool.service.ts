@@ -8,7 +8,7 @@ import { BaseService } from './base.service';
 })
 export class ThreadpoolService extends BaseService {
   getThreadPools(connection: EsConnection): Observable<any[]> {
-    return this.http.get<any[]>(connection.Host + '/_cat/thread_pool?format=json&s=rejected:desc,queue:desc,active:desc', {
+    return this.http.get<any[]>(connection.Host + '/_cat/thread_pool?format=json&s=rejected:desc,queue:desc,active:desc,node_name:asc,name:asc', {
       headers: this.getHeader(connection),
     });
   }
