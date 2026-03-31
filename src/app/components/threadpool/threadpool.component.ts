@@ -12,7 +12,7 @@ import { EsThreadPool } from '../../entities/esThreadPool';
   templateUrl: './threadpool.component.html',
   styleUrl: './threadpool.component.css',
 })
-export class Threadpool implements OnDestroy {
+export class ThreadpoolComponent implements OnDestroy {
   connection = input<EsConnection>();
   threadPools = signal<EsThreadPool[]>([]);
   loading = signal<boolean>(true);

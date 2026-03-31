@@ -2,20 +2,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
-import { Threadpool } from './threadpool.component';
+import { ThreadpoolComponent } from './threadpool.component';
 
-describe('Threadpool', () => {
-  let component: Threadpool;
-  let fixture: ComponentFixture<Threadpool>;
+describe('ThreadpoolComponent', () => {
+  let component: ThreadpoolComponent;
+  let fixture: ComponentFixture<ThreadpoolComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Threadpool],
+      imports: [ThreadpoolComponent],
       providers: [provideHttpClient(), provideHttpClientTesting()]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Threadpool);
+    fixture = TestBed.createComponent(ThreadpoolComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
