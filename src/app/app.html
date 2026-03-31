@@ -69,6 +69,10 @@
     @if (selectedConnectionNode()?.Type == 'ThreadPool') {
     <threadpool [connection]="selectedConnectionNode()"></threadpool>
     }
+
+    @if (selectedConnectionNode()?.Type == 'CircuitBreaker') {
+    <circuitbreakers [connection]="selectedConnectionNode()"></circuitbreakers>
+    }
   </div>
 </div>
 

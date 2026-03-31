@@ -14,12 +14,13 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { ConnectionsComponent } from './components/connections/connections.component';
 import { ConnectionService } from './services/connection.service';
 import packageJson from '../../package.json';
+import { CircuitbreakersComponent } from './components/circuitbreakers/circuitbreakers.component';
 
 const DESKTOP_BREAKPOINT = 1024; // Tailwind lg breakpoint
 
 @Component({
   selector: 'app-root',
-  imports: [ConnectionsComponent, PanelMenuModule, ButtonModule, Threadpool, ShardComponent, IndexComponent, NodeComponent, SplitterModule, ConnectionComponent, MenubarModule],
+  imports: [ConnectionsComponent, PanelMenuModule, ButtonModule, CircuitbreakersComponent, Threadpool, ShardComponent, IndexComponent, NodeComponent, SplitterModule, ConnectionComponent, MenubarModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -63,11 +64,17 @@ export class App implements OnInit {
           command: () => this.onConnectionNodeSelected(conn, "Index"),
         },
         {
+          key: conn.Id + "_CB",
+          label: "Circuit Breakers",
+          icon: 'pi pi-bolt',
+          command: () => this.onConnectionNodeSelected(conn, "CircuitBreaker"),
+        },
+        {
           key: conn.Id + "_TP",
           label: "Thread Pools",
           icon: 'pi pi-chart-bar',
           command: () => this.onConnectionNodeSelected(conn, "ThreadPool"),
-        },
+        },        
         {
           key: conn.Id + "_S",
           label: "Shards",

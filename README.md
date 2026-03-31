@@ -1,79 +1,81 @@
 # ElasMon
 
-A standalone desktop application for monitoring Elasticsearch clusters in real-time.
+ElasMon is a standalone desktop application for real-time Elasticsearch monitoring.
 
 ## Features
 
-- **Cluster Overview**: Monitor cluster health, status, node count, documents, store size, CPU, memory, heap, and disk usage
-- **Node Statistics**: View detailed node metrics including CPU, heap, memory, disk usage, thread pool rejections, shards per node, and uptime
-- **Index Management**: Browse all indices with document counts, size, shards, replicas, and ingestion rate tracking
-- **Shard Health**: Monitor active, primary, relocating, initializing, and unassigned shards
-- **Thread Pools Monitoring**: Track Elasticsearch thread pools by node with active, queue, and rejected task counts to quickly spot bottlenecks
-- **Multiple Connections**: Manage and switch between multiple Elasticsearch clusters
-- **Auto Refresh**: Data automatically refreshes every 20 seconds
+- Cluster Overview: Monitor health, status, node count, document count, store size, and high-level resource usage.
+- Node Statistics: Track per-node CPU, heap, memory, disk usage, shard density, and uptime.
+- Indices Statistics: View index-level documents, storage, shard/replica settings, and indexing/search rates.
+- Shards Statistics: Monitor active, primary, relocating, initializing, and unassigned shards.
+- Thread Pools: Inspect per-node pool activity, queue depth, and rejected tasks.
+- Circuit Breakers: Monitor node-level `parent`, `fielddata`, and `inflight_requests` breakers, including tripped counts and usage percentages.
+- Multiple Connections: Manage and switch between multiple Elasticsearch clusters.
+- Auto Refresh: Metrics refresh automatically every 20 seconds.
 
 ## Screenshots
 
-### Clusters Dashboard
-![Clusters Dashboard](readme/connections.png)
+### Connections
+![Connections](readme/connections.png)
 
-### Cluster Statistics
-![Cluster Statistics](readme/connection.png)
+### Cluster Overview
+![Cluster Overview](readme/connection.png)
 
-### Node Statistics
-![Node Statistics](readme/nodes.png)
+### Nodes
+![Nodes](readme/nodes.png)
 
-### Indices Statistics
-![Indices Statistics](readme/indices.png)
+### Indices
+![Indices](readme/indices.png)
 
-### Shards Statistics
-![Shards Statistics](readme/shards.png)
+### Shards
+![Shards](readme/shards.png)
 
-### Thread Pools Statistics
-![Thread Pools Statistics](readme/threadpools.png)
+### Thread Pools
+![Thread Pools](readme/threadpools.png)
 
+### Circuit Breakers
+![Circuit Breakers](readme/circuitbreakers.png)
 
 ## Tech Stack
 
-- **Frontend**: Angular 21, PrimeNG 21, Tailwind CSS 4
-- **Desktop**: Electron 39
-- **Language**: TypeScript
+- Frontend: Angular 21, PrimeNG 21, Tailwind CSS 4
+- Desktop: Electron 39
+- Language: TypeScript
 
 ## Installation
 
-### Build from Source
+### Build From Source
 
 ```bash
-# Clone the repository
 git clone https://github.com/hintdesk/elasmon.git
 cd elasmon
 
-# Install dependencies
 npm install
-
-# Run in development mode
 npm start
+```
 
-# Build for production (Windows)
+### Build Desktop Package (Windows)
+
+```bash
 npm run electron:build
 ```
 
-The built application will be available in the `release/win-unpacked` folder.
+Build output is available in `release/win-unpacked`.
 
 ## Usage
 
-1. Launch ElasMon
-2. Click on "Connections" in the left panel
-3. Add a new Elasticsearch connection with:
-   - Name: A friendly name for the connection
-   - URL: Elasticsearch cluster URL (e.g., `http://localhost:9200`)
-   - Username/Password: Authentication credentials
-4. Click Save and select the connection to start monitoring
-5. Open **Thread Pools** to inspect per-node thread pool load, queue depth, and rejected tasks in real time
+1. Launch ElasMon.
+2. Open Connections from the left panel.
+3. Add an Elasticsearch connection:
+   - Name: Friendly display name.
+   - URL: Cluster endpoint (example: `http://localhost:9200`).
+   - Username/Password: Authentication credentials.
+4. Save and select a connection.
+5. Navigate to Nodes, Indices, Shards, Thread Pools, or Circuit Breakers to monitor cluster behavior in real time.
 
 ## License
 
-MIT License
+MIT
 
 ## Author
 
@@ -81,6 +83,6 @@ MIT License
 
 ## Support
 
-If you find this project helpful, consider supporting its development:
+If this project is helpful, you can support development here:
 
 [![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/hintdesk)
