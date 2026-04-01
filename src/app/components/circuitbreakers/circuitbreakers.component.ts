@@ -1,6 +1,7 @@
 import { Component, effect, input, OnDestroy, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { catchError, of, Subscription, switchMap, timer } from 'rxjs';
 import { EsConnection } from '../../entities/esConnection';
@@ -9,7 +10,7 @@ import { NodeService } from '../../services/node.service';
 
 @Component({
   selector: 'circuitbreakers',
-  imports: [ProgressSpinnerModule, DecimalPipe, TableModule],
+  imports: [ProgressSpinnerModule, DecimalPipe, TableModule, TooltipModule],
   templateUrl: './circuitbreakers.component.html',
   styleUrl: './circuitbreakers.component.css',
 })

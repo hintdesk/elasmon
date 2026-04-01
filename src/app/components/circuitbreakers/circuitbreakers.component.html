@@ -28,7 +28,9 @@
 						</div>
 					</th>
 
-					<th pSortableColumn="ParentPercent">
+					<th pSortableColumn="ParentPercent"
+						pTooltip="Parent breaker usage percentage, calculated as (estimated_size_in_bytes / limit_size_in_bytes) * 100. The value should be less than 85."
+						tooltipPosition="top">
 						<div class="flex items-center gap-2">
 							Parent %
 							<p-sortIcon field="ParentPercent" />
@@ -42,7 +44,9 @@
 						</div>
 					</th>
 
-					<th pSortableColumn="FielddataPercent">
+					<th pSortableColumn="FielddataPercent"
+						pTooltip="Fielddata breaker usage percentage, calculated as (estimated_size_in_bytes / limit_size_in_bytes) * 100. The value should be less than 85."
+						tooltipPosition="top">
 						<div class="flex items-center gap-2">
 							Fielddata %
 							<p-sortIcon field="FielddataPercent" />
@@ -56,7 +60,9 @@
 						</div>
 					</th>
 
-					<th pSortableColumn="InflightRequestsPercent">
+					<th pSortableColumn="InflightRequestsPercent"
+						pTooltip="Inflight requests breaker usage percentage, calculated as (estimated_size_in_bytes / limit_size_in_bytes) * 100. The value should be less than 85."
+						tooltipPosition="top">
 						<div class="flex items-center gap-2">
 							Inflight Requests %
 							<p-sortIcon field="InflightRequestsPercent" />
