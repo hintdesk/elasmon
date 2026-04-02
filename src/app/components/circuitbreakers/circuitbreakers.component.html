@@ -21,6 +21,15 @@
 						</div>
 					</th>
 
+					<th pSortableColumn="GcPercent"
+						pTooltip="Percentage of time the node spent in Garbage Collection since the last metric collection"
+						tooltipPosition="top">
+						<div class="flex items-center gap-2">
+							GC Overhead %
+							<p-sortIcon field="GcPercent" />
+						</div>
+					</th>
+
 					<th pSortableColumn="ParentTripped">
 						<div class="flex items-center gap-2">
 							Parent Tripped
@@ -74,17 +83,20 @@
 			<ng-template #body let-breaker>
 				<tr>
 					<td>{{ breaker.Node }}</td>
-					<td [class]="breaker.ParentTripped > 0 ? 'text-red-500 font-bold' : ''">{{ breaker.ParentTripped }}</td>
+					<td [class]="breaker.GcPercent > 85 ? 'text-red-500 font-bold' : ''">
+						{{ breaker.GcPercent > 0 ? (breaker.GcPercent | number:'1.2-2') : '' }}
+					</td>
+					<td [class]="breaker.ParentTripped > 0 ? 'text-red-500 font-bold' : ''">{{ breaker.ParentTripped || '' }}</td>
 					<td [class]="breaker.ParentPercent > 85 ? 'text-red-500 font-bold' : ''">
 						{{ breaker.ParentPercent | number:'1.2-2' }}
 					</td>
-					<td [class]="breaker.FielddataTripped > 0 ? 'text-red-500 font-bold' : ''">{{ breaker.FielddataTripped }}</td>
+					<td [class]="breaker.FielddataTripped > 0 ? 'text-red-500 font-bold' : ''">{{ breaker.FielddataTripped || '' }}</td>
 					<td [class]="breaker.FielddataPercent > 85 ? 'text-red-500 font-bold' : ''">
 						{{ breaker.FielddataPercent | number:'1.2-2' }}
 					</td>
-					<td [class]="breaker.InflightRequestsTripped > 0 ? 'text-red-500 font-bold' : ''">{{ breaker.InflightRequestsTripped }}</td>
+					<td [class]="breaker.InflightRequestsTripped > 0 ? 'text-red-500 font-bold' : ''">{{ breaker.InflightRequestsTripped || '' }}</td>
 					<td [class]="breaker.InflightRequestsPercent > 85 ? 'text-red-500 font-bold' : ''">
-						{{ breaker.InflightRequestsPercent | number:'1.2-2' }}
+						{{ breaker.InflightRequestsPercent > 0.01 ? (breaker.InflightRequestsPercent | number:'1.2-2'): '' }}
 					</td>
 				</tr>
 			</ng-template>

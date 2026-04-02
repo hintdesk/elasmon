@@ -6,4 +6,7 @@ export class EsCircuitBreaker {
     FielddataPercent!: number;
     InflightRequestsTripped!: number;
     InflightRequestsPercent!: number;
+    ConnectionId!: string;
+    JvmGcCollectorsOldMillis!: number;
+    GcPercent!: number;
 }

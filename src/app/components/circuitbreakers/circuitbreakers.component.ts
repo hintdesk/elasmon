@@ -7,6 +7,7 @@ import { catchError, of, Subscription, switchMap, timer } from 'rxjs';
 import { EsConnection } from '../../entities/esConnection';
 import { EsCircuitBreaker } from '../../entities/esCircuitBreaker';
 import { NodeService } from '../../services/node.service';
+import { CircuitbreakerService } from '../../services/circuitbreaker.service';
 
 @Component({
   selector: 'circuitbreakers',
@@ -21,7 +22,8 @@ export class CircuitbreakersComponent implements OnDestroy {
 
   private subscription: Subscription | null = null;
 
-  constructor(private nodeService: NodeService) {
+  constructor(
+    private circuitbreakerService: CircuitbreakerService) {
     effect(() => {
       const conn = this.connection();
       if (conn) {
@@ -59,7 +61,7 @@ export class CircuitbreakersComponent implements OnDestroy {
     this.subscription = timer(0, 20000)
       .pipe(
         switchMap(() => {
-          return this.nodeService.getNodesStats(this.connection()!).pipe(
+          return this.circuitbreakerService.getNodesStats(this.connection()!).pipe(
             catchError((error) => {
               console.error('There was an error!', error);
               return of(null);
@@ -80,15 +82,30 @@ export class CircuitbreakersComponent implements OnDestroy {
           const node = data.nodes[nodeId];
           const breakers = node.breakers ?? {};
 
-          items.push({
+          
+
+          const breaker: EsCircuitBreaker = {
             Node: node.name,
+            ConnectionId: this.connection()!.Id,
             ParentTripped: breakers.parent?.tripped ?? 0,
             ParentPercent: this.calculatePercent(breakers.parent),
             FielddataTripped: breakers.fielddata?.tripped ?? 0,
             FielddataPercent: this.calculatePercent(breakers.fielddata),
             InflightRequestsTripped: breakers.inflight_requests?.tripped ?? 0,
             InflightRequestsPercent: this.calculatePercent(breakers.inflight_requests),
-          });
+            JvmGcCollectorsOldMillis: node.jvm?.gc?.collectors?.old?.collection_time_in_millis ?? 0,
+            GcPercent: 0
+          }
+
+          const cacheItem = this.circuitbreakerService.getGc(breaker);
+          if (cacheItem) {
+            const deltaGC = breaker.JvmGcCollectorsOldMillis - cacheItem.JvmGcCollectorsOldMillis;
+            const deltaTime = Date.now() - cacheItem.Timestamp;
+            if (deltaTime > 0) {
+              breaker.GcPercent = (deltaGC / deltaTime) * 100;
+            }
+          }
+          items.push(breaker);
         }
 
         this.breakers.set([...items.sort((a, b) => a.Node.localeCompare(b.Node))]);
