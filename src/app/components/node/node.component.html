@@ -116,7 +116,7 @@
                     <td>{{ node.Name }}</td>
                     <td [class]="node.Cpu >= 80 ? 'text-red-500 font-bold' : ''">{{ node.Cpu || '' }}</td>
                     <td [class]="node.Heap >= 85 ? 'text-red-500 font-bold' : ''">{{ node.Heap }}</td>
-                    <td>{{ node.Memory }}</td>
+                    <td [class]="node.Memory == 100 ? 'text-red-500 font-bold' : ''">{{ node.Memory }}</td>
                     <td [class]="node.Disk >= 85 ? 'text-red-500 font-bold' : ''">{{ node.Disk | number:'1.2-2'}}</td>
                     <td>{{ node.TotalShards || '' }}</td>
                     <td [class]="node.ShardsPerGBHeap >= 20 ? 'text-red-500 font-bold' : ''">{{ node.ShardsPerGBHeap ?
