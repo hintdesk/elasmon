@@ -30,14 +30,18 @@
                             <p-sortIcon field="Size" />
                         </div>
                     </th>
-                    <th pSortableColumn="Estimate">
-                        <div class="flex items-center gap-2" title="Node Estimate shows the node-level estimated usage, including total consumption of all field data stored on that node.">
+                    <th pSortableColumn="Estimate"
+                        pTooltip="Node Estimate shows the node-level estimated usage, including total consumption of all field data stored on that node."
+                        tooltipPosition="top">
+                        <div class="flex items-center gap-2">
                             Node Estimate
                             <p-sortIcon field="Estimate" />
                         </div>
                     </th>
-                    <th pSortableColumn="Limit">
-                        <div class="flex items-center gap-2" title="Node Limit shows the node-level limit.">
+                    <th pSortableColumn="Limit"
+                        pTooltip="Node Limit shows the node-level limit, including total consumption of all field data stored on that node."
+                        tooltipPosition="top">
+                        <div class="flex items-center gap-2">
                             Node Limit
                             <p-sortIcon field="Limit" />
                         </div>

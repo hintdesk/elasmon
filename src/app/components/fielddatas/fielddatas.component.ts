@@ -7,10 +7,11 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FielddataService } from '../../services/fielddata.service';
 import { FormatBytesPipe } from '../../pipes/format-bytes.pipe';
 import { NodeService } from '../../services/node.service';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'fielddata',
-  imports: [FormatBytesPipe, ProgressSpinnerModule, TableModule],
+  imports: [FormatBytesPipe, ProgressSpinnerModule, TableModule, TooltipModule],
   templateUrl: './fielddatas.component.html',
   styleUrl: './fielddatas.component.css',
 })

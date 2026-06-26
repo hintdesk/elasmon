@@ -1,0 +1,1 @@
+- Review existing components before developing a new specification. If a similar feature is already implemented elsewhere, follow the established pattern and replicate its design/logic.
