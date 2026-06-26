@@ -15,12 +15,13 @@ import { ConnectionsComponent } from './components/connections/connections.compo
 import { ConnectionService } from './services/connection.service';
 import packageJson from '../../package.json';
 import { CircuitbreakersComponent } from './components/circuitbreakers/circuitbreakers.component';
+import { FieldDataComponent } from './components/fielddatas/fielddatas.component';
 
 const DESKTOP_BREAKPOINT = 1024; // Tailwind lg breakpoint
 
 @Component({
   selector: 'app-root',
-  imports: [ConnectionsComponent, PanelMenuModule, ButtonModule, CircuitbreakersComponent, ThreadpoolComponent, ShardComponent, IndexComponent, NodeComponent, SplitterModule, ConnectionComponent, MenubarModule],
+  imports: [ConnectionsComponent, PanelMenuModule, ButtonModule, CircuitbreakersComponent, ThreadpoolComponent, ShardComponent, FieldDataComponent, IndexComponent, NodeComponent, SplitterModule, ConnectionComponent, MenubarModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -62,6 +63,12 @@ export class App implements OnInit {
           label: "Indices",
           icon: 'pi pi-list',
           command: () => this.onConnectionNodeSelected(conn, "Index"),
+        },
+        {
+          key: conn.Id + "_FD",
+          label: "Fielddatas",
+          icon: 'pi pi-table',
+          command: () => this.onConnectionNodeSelected(conn, "Fielddata"),
         },
         {
           key: conn.Id + "_CB",

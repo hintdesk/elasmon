@@ -62,6 +62,10 @@
     <index [connection]="selectedConnectionNode()"></index>
     }
 
+    @if (selectedConnectionNode()?.Type == 'Fielddata') {
+    <fielddata [connection]="selectedConnectionNode()"></fielddata>
+    }
+
     @if (selectedConnectionNode()?.Type == 'Shard') {
     <shard [connection]="selectedConnectionNode()"></shard>
     }
