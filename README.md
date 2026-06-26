@@ -7,6 +7,7 @@ ElasMon is a standalone desktop application for real-time Elasticsearch monitori
 - Cluster Overview: Monitor health, status, node count, document count, store size, and high-level resource usage.
 - Node Statistics: Track per-node CPU, heap, memory, disk usage, shard density, and uptime.
 - Indices Statistics: View index-level documents, storage, shard/replica settings, and indexing/search rates.
+- Field Datas: Inspect node-level fielddata usage by field, including size, estimated usage, and breaker limits.
 - Shards Statistics: Monitor active, primary, relocating, initializing, and unassigned shards.
 - Thread Pools: Inspect per-node pool activity, queue depth, and rejected tasks.
 - Circuit Breakers: Monitor node-level `parent`, `fielddata`, and `inflight_requests` breakers, including tripped counts and usage percentages.
@@ -26,6 +27,9 @@ ElasMon is a standalone desktop application for real-time Elasticsearch monitori
 
 ### Indices
 ![Indices](readme/indices.png)
+
+### Fielddatas
+![Fielddatas](readme/fielddatas.png)
 
 ### Shards
 ![Shards](readme/shards.png)
@@ -71,7 +75,7 @@ Build output is available in `release/win-unpacked`.
    - URL: Cluster endpoint (example: `http://localhost:9200`).
    - Username/Password: Authentication credentials.
 4. Save and select a connection.
-5. Navigate to Nodes, Indices, Shards, Thread Pools, or Circuit Breakers to monitor cluster behavior in real time.
+5. Navigate to Nodes, Indices, Field Datas, Shards, Thread Pools, or Circuit Breakers to monitor cluster behavior in real time.
 
 ## License
 
