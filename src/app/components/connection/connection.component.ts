@@ -22,6 +22,7 @@ export class ConnectionComponent implements OnDestroy {
   connection = input<EsConnection>()
   clusterStats = signal<ClusterStats | null>(null);
   clusterHealth = signal<ClusterHealth | null>(null);
+  clusterVersion = signal<string>('');
   loading = signal<boolean>(true);
 
   http = signal<number>(0);
@@ -65,6 +66,7 @@ export class ConnectionComponent implements OnDestroy {
     this.loading.set(true);
     this.clusterStats.set(null);
     this.clusterHealth.set(null);
+    this.clusterVersion.set('');
     this.http.set(0);
     this.queryTotal.set(0);
     this.queryTime.set(0);
@@ -78,11 +80,13 @@ export class ConnectionComponent implements OnDestroy {
           const clusterStatsRequest = this.elasticService.getClusterStats(this.connection()!);
           const nodesStatsRequest = this.nodeService.getNodesStats(this.connection()!);
           const clusterHealthRequest = this.elasticService.getClusterHealth(this.connection()!);
+          const clusterInfoRequest = this.elasticService.getClusterInfo(this.connection()!);
 
           return forkJoin({
             clusterStats: clusterStatsRequest,
             nodesStats: nodesStatsRequest,
-            clusterHealth: clusterHealthRequest
+            clusterHealth: clusterHealthRequest,
+            clusterInfo: clusterInfoRequest
           }).pipe(
             catchError(error => {
               console.error('There was an error!', error);
@@ -101,7 +105,9 @@ export class ConnectionComponent implements OnDestroy {
 
         this.clusterStats.set(data.clusterStats);
         this.clusterHealth.set(data.clusterHealth);
-        for (const nodeId in data.nodesStats.nodes) {
+        this.clusterVersion.set(data.clusterInfo?.version?.number ?? '');
+
+        for (const nodeId in data.nodesStats?.nodes) {
           const node = data.nodesStats.nodes[nodeId];
 
           this.http.set(this.http() + node.http.current_open);

@@ -22,8 +22,12 @@
                 </div>
                 <i class="pi pi-server text-3xl text-blue-500"></i>
             </div>
-            <p class="text-xs text-gray-400 mt-3">Name: <span class="text-gray-300">{{ clusterStats()?.cluster_name
-                    }}</span></p>
+            <div class="text-xs text-gray-400 mt-3 flex items-center justify-between gap-3">
+                <span>Name: <span class="text-gray-300">{{ clusterStats()?.cluster_name }}</span></span>
+                @if (clusterVersion()) {
+                    <span class="text-gray-400 text-right">Version: <span class="text-gray-300">{{ clusterVersion() }}</span></span>
+                }
+            </div>
         </div>
 
         <!-- Nodes Card -->

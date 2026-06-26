@@ -14,4 +14,8 @@ export class ClusterService extends BaseService {
   getClusterHealth(connection: EsConnection): any {
     return this.http.get<any>(connection.Host! + '/_cluster/health', { headers: this.getHeader(connection) });
   }
+
+  getClusterInfo(connection: EsConnection): any {
+    return this.http.get<any>(connection.Host! + '/', { headers: this.getHeader(connection) });
+  }
 }
