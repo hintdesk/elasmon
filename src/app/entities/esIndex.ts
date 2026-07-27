@@ -10,4 +10,5 @@ export class EsIndex {
     SearchRate?: number;
     IndexingLatency?: number;
     SearchLatency?: number;
+    FieldCount?: number;
 }

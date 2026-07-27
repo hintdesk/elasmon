@@ -65,10 +65,12 @@ export class IndexComponent implements OnDestroy {
         switchMap(() => {
           const statsRequest = this.indexService.getStats(this.connection()!);
           const catIndicesRequest = this.indexService.getCatIndices(this.connection()!);
+          const mappingRequest = this.indexService.getMapping(this.connection()!);
 
           return forkJoin({
             stats: statsRequest,
-            catIndices: catIndicesRequest
+            catIndices: catIndicesRequest,
+            mapping: mappingRequest
           }).pipe(
             catchError(error => {
               console.error('There was an error!', error);
@@ -100,6 +102,9 @@ export class IndexComponent implements OnDestroy {
               : undefined,
             SearchLatency: (item.total?.search?.query_time_in_millis && item.total?.search?.query_total) 
               ? item.total.search.query_time_in_millis / item.total.search.query_total 
+              : undefined,
+            FieldCount: data.mapping?.[indexName]?.mappings?.properties
+              ? this.countFields(data.mapping[indexName].mappings.properties)
               : undefined
           };
           // const cacheItem = this.indexService.getIngested(index);
@@ -126,6 +131,18 @@ export class IndexComponent implements OnDestroy {
   clearSearch() {
     this.searchText = '';
     this.filterIndices();
+  }
+
+  private countFields(properties: Record<string, any>): number {
+    return Object.values(properties).reduce((sum: number, prop: any) => {
+      // Skip properties with type "object"
+      if (prop.type === "object") {
+        return sum;
+      }
+      const fieldsCount = prop.fields ? Object.keys(prop.fields).length : 0;
+      const subPropsCount = prop.properties ? this.countFields(prop.properties) : 0;
+      return sum + (subPropsCount > 0 ? fieldsCount + subPropsCount : 1 + fieldsCount);
+    }, 0);
   }
 
   private filterIndices() {

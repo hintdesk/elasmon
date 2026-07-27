@@ -34,4 +34,8 @@ export class IndexService extends BaseService {
   getCatIndices(connection: EsConnection): any {
     return this.http.get<any>(connection.Host! + '/_cat/indices?format=json', { headers: this.getHeader(connection) });
   }
+
+  getMapping(connection: EsConnection): any {
+    return this.http.get<any>(connection.Host! + '/_mapping', { headers: this.getHeader(connection) });
+  }
 }

@@ -70,6 +70,12 @@
                             <p-sortIcon field="Replicas" />
                         </div>
                     </th>
+                    <th pSortableColumn="FieldCount" pTooltip="Number of fields (system fields not included). The count should be less than 1000." tooltipPosition="top">
+                        <div class="flex items-center gap-2">
+                            Field Count
+                            <p-sortIcon field="FieldCount" />
+                        </div>
+                    </th>
                     <th pSortableColumn="IndexingRate" pTooltip="Number of documents indexed per second" tooltipPosition="top">
                         <div class="flex items-center gap-2">
                             Indexing Rate
@@ -106,6 +112,7 @@
                     <td [class]="esIndex.GBPerShard > 30 ? 'text-red-500 font-bold' : ''">{{ esIndex.GBPerShard ?
                         (esIndex.GBPerShard | number:'1.2-2') : '' }}</td>
                     <td>{{ esIndex.Replicas }}</td>
+                    <td [class]="esIndex.FieldCount != null && esIndex.FieldCount > 1000 ? 'text-red-500 font-bold' : ''">{{ esIndex.FieldCount != null ? esIndex.FieldCount : '' }}</td>
                     <td>{{ esIndex.IndexingRate != null ? (esIndex.IndexingRate | number:'1.0-0') : '' }}</td>
                     <td>{{ esIndex.SearchRate != null ? (esIndex.SearchRate | number:'1.0-0') : '' }}</td>
                     <td>{{ esIndex.IndexingLatency != null ? (esIndex.IndexingLatency | number:'1.2-2') : '' }}</td>
