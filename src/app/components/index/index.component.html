@@ -56,7 +56,7 @@
                         </div>
                     </th>
 
-                    <th pSortableColumn="GBPerShard" pTooltip="Number of GB per Shard. The rate should be less than 30."
+                    <th pSortableColumn="GBPerShard" pTooltip="Number of GB per Shard. The rate should be less than 50."
                         tooltipPosition="top">
                         <div class="flex items-center gap-2">
                             GB/Shard
@@ -109,7 +109,7 @@
                     <td>{{ esIndex.Documents }}</td>
                     <td>{{ esIndex.Size | formatBytes}}</td>
                     <td>{{ esIndex.Shards }}</td>
-                    <td [class]="esIndex.GBPerShard > 30 ? 'text-red-500 font-bold' : ''">{{ esIndex.GBPerShard ?
+                    <td [class]="esIndex.GBPerShard > 50 ? 'text-red-500 font-bold' : ''">{{ esIndex.GBPerShard ?
                         (esIndex.GBPerShard | number:'1.2-2') : '' }}</td>
                     <td>{{ esIndex.Replicas }}</td>
                     <td [class]="esIndex.FieldCount != null && esIndex.FieldCount > 1000 ? 'text-red-500 font-bold' : ''">{{ esIndex.FieldCount != null ? esIndex.FieldCount : '' }}</td>
