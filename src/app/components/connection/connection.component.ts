@@ -7,8 +7,8 @@ import { DecimalPipe, TitleCasePipe } from '@angular/common';
 import { NodeService } from '../../services/node.service';
 import { catchError, forkJoin, of, Subscription, switchMap, timer } from 'rxjs';
 import { ClusterHealth } from '../../entities/clusterHealth';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { TooltipModule } from 'primeng/tooltip';
+import { ProgressSpinnerModule } from '@openng/optimus-ui/progressspinner';
+import { TooltipModule } from '@openng/optimus-ui/tooltip';
 
 
 @Component({

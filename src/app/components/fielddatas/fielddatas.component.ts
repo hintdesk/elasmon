@@ -1,13 +1,13 @@
 import { Component, effect, input, OnDestroy, signal } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from '@openng/optimus-ui/table';
 import { EsConnection } from '../../entities/esConnection';
 import { EsFieldData } from '../../entities/esFieldData';
 import { catchError, forkJoin, of, Subscription, switchMap, timer } from 'rxjs';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ProgressSpinnerModule } from '@openng/optimus-ui/progressspinner';
 import { FielddataService } from '../../services/fielddata.service';
 import { FormatBytesPipe } from '../../pipes/format-bytes.pipe';
 import { NodeService } from '../../services/node.service';
-import { TooltipModule } from 'primeng/tooltip';
+import { TooltipModule } from '@openng/optimus-ui/tooltip';
 
 @Component({
   selector: 'fielddata',

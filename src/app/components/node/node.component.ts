@@ -1,13 +1,13 @@
 import { Component, effect, input, OnDestroy, signal } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from '@openng/optimus-ui/table';
 import { EsConnection } from '../../entities/esConnection';
 import { NodeService } from '../../services/node.service';
 import { EsNode } from '../../entities/esNode';
 import { DecimalPipe } from '@angular/common';
 import { MsToDaysHoursPipe } from '../../pipes/ms-to-days-hours.pipe';
 import { catchError, of, Subscription, switchMap, timer } from 'rxjs';
-import { TooltipModule } from 'primeng/tooltip';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { TooltipModule } from '@openng/optimus-ui/tooltip';
+import { ProgressSpinnerModule } from '@openng/optimus-ui/progressspinner';
 import { FormatBytesPipe } from '../../pipes/format-bytes.pipe';
 
 @Component({

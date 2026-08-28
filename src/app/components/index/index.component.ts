@@ -1,18 +1,18 @@
 import { Component, effect, input, OnDestroy, signal } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from '@openng/optimus-ui/table';
 import { EsIndex } from '../../entities/esIndex';
 import { IndexService } from '../../services/index.service';
 import { EsConnection } from '../../entities/esConnection';
 import { FormatBytesPipe } from '../../pipes/format-bytes.pipe';
 import { catchError, forkJoin, of, Subscription, switchMap, timer } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitchModule } from '@openng/optimus-ui/toggleswitch';
 import { FormsModule } from '@angular/forms';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { TooltipModule } from 'primeng/tooltip';
-import { InputTextModule } from 'primeng/inputtext';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
+import { ProgressSpinnerModule } from '@openng/optimus-ui/progressspinner';
+import { TooltipModule } from '@openng/optimus-ui/tooltip';
+import { InputTextModule } from '@openng/optimus-ui/inputtext';
+import { IconFieldModule } from '@openng/optimus-ui/iconfield';
+import { InputIconModule } from '@openng/optimus-ui/inputicon';
 
 @Component({
   selector: 'index',

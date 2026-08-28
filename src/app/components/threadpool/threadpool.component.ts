@@ -1,7 +1,7 @@
 import { Component, effect, input, OnDestroy, signal } from '@angular/core';
 import { EsConnection } from '../../entities/esConnection';
-import { TableModule } from 'primeng/table';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { TableModule } from '@openng/optimus-ui/table';
+import { ProgressSpinnerModule } from '@openng/optimus-ui/progressspinner';
 import { catchError, of, Subscription, switchMap, timer } from 'rxjs';
 import { ThreadpoolService } from '../../services/threadpool.service';
 import { EsThreadPool } from '../../entities/esThreadPool';

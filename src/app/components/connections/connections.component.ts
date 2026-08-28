@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from '@openng/optimus-ui/table';
 import { EsConnection } from '../../entities/esConnection';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from '@openng/optimus-ui/button';
+import { DialogModule } from '@openng/optimus-ui/dialog';
 import { FormsModule, NgForm } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from '@openng/optimus-ui/inputtext';
 import { ConnectionService } from '../../services/connection.service';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from '@openng/optimus-ui/password';
 
 @Component({
   selector: 'connections',

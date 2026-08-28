@@ -4,7 +4,7 @@ import { ClusterHealth } from '../../entities/clusterHealth';
 import { catchError, of, Subscription, switchMap, timer } from 'rxjs';
 import { ClusterService } from '../../services/cluster.service';
 import { DecimalPipe } from '@angular/common';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ProgressSpinnerModule } from '@openng/optimus-ui/progressspinner';
 
 @Component({
   selector: 'shard',
