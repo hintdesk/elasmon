@@ -11,6 +11,7 @@ import { MenuItem } from '@openng/optimus-ui/api';
 import { EsConnection } from './entities/esConnection';
 import { ButtonModule } from '@openng/optimus-ui/button';
 import { PanelMenuModule } from '@openng/optimus-ui/panelmenu';
+import { TagModule } from '@openng/optimus-ui/tag';
 import { ConnectionsComponent } from './components/connections/connections.component';
 import { ConnectionService } from './services/connection.service';
 import packageJson from '../../package.json';
@@ -21,7 +22,7 @@ const DESKTOP_BREAKPOINT = 1024; // Tailwind lg breakpoint
 
 @Component({
   selector: 'app-root',
-  imports: [ConnectionsComponent, PanelMenuModule, ButtonModule, CircuitbreakersComponent, ThreadpoolComponent, ShardComponent, FieldDataComponent, IndexComponent, NodeComponent, SplitterModule, ConnectionComponent, MenubarModule],
+  imports: [ConnectionsComponent, PanelMenuModule, ButtonModule, TagModule, CircuitbreakersComponent, ThreadpoolComponent, ShardComponent, FieldDataComponent, IndexComponent, NodeComponent, SplitterModule, ConnectionComponent, MenubarModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

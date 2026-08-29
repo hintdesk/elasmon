@@ -1,1 +1,2 @@
 - Before implementing a new specification, check if a similar feature already exists in other components. If so, mirror the existing implementation to maintain consistency.
+- When using Tailwind CSS, use its built-in utility classes exclusively. Do not use arbitrary values (for example, `bg-[#...]`, `text-[...]`, or `px-[...]`) unless the user explicitly requests them.

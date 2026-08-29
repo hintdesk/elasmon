@@ -17,10 +17,11 @@
           d="M595.9 477.5l-6.3 13-23.9-69.8c-1-3.1-4-5.1-7.2-5.1h-0.1c-3.3 0.1-6.1 2.2-7.1 5.4l-40.6 132.6-18.2-233.8c-0.3-3.8-3.3-6.8-7.1-7-3.5-0.6-7.2 2.4-7.9 6.1l-34 173.1-15.3-27.8c-1-1.8-2.8-3.2-4.8-3.7s-4.2-0.1-6 1l-36.5 24.2-6.5-1.7c-4.1-1.2-8.2 1.3-9.3 5.4-1.1 4 1.3 8.2 5.4 9.3l9.7 2.6c2.2 0.6 4.3 0.2 6.1-1l32.6-21.6 21.4 38.8c1.5 2.8 4.6 4.3 7.8 3.8 3.1-0.5 5.6-2.9 6.3-6L481.8 376l17 218.5c0.3 3.6 3.1 6.5 6.7 7 0.3 0.1 0.6 0.1 0.8 0.1 3.3 0 6.3-2.2 7.2-5.4l45.4-148.4 22.5 65.2c1 2.9 3.6 4.9 6.7 5.1 3 0.1 5.9-1.6 7.2-4.3l12-25.2 51.7 2.6c4.4 0.6 7.7-3 7.9-7.2s-3-7.7-7.2-7.9l-56.7-2.9c-2.9-0.1-5.8 1.6-7.1 4.3z"
           fill="#005BFF" />
       </svg>
-      <!-- App name -->
+      <!-- App name and version tag -->
       <span class="text-2xl font-bold text-slate-700">
         ElasMon
       </span>
+      <p-tag [value]="'v' + version" styleClass="!bg-slate-50 !border !border-slate-100 !text-slate-400 !text-xs !font-medium !px-1.5 !py-0.5"></p-tag>
     </div>
   </ng-template>
   <ng-template #end>
@@ -41,7 +42,6 @@
   <div
     class="w-[300px] flex-shrink-0 p-4 max-lg:fixed max-lg:top-[60px] max-lg:left-0 max-lg:h-[calc(100vh-60px)] max-lg:w-[280px] max-lg:min-w-[280px] max-lg:bg-white max-lg:z-[1000] max-lg:overflow-y-auto max-lg:shadow-[2px_0_8px_rgba(0,0,0,0.15)] max-sm:w-full max-sm:min-w-full transition-all duration-300">
     <p-panelMenu class="mb-4" [model]="connectionNodes()"></p-panelMenu>
-    <span class="text-sm text-gray-400 text-center block">Version {{ version }}</span>
   </div>
   }
 

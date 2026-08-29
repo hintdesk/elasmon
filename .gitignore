@@ -43,3 +43,5 @@ __screenshots__/
 Thumbs.db
 src/proxy.conf.json
 release/
+.agents/skills/*
+skills-lock.json

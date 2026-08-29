@@ -1,6 +1,10 @@
 <div class="p-4 overflow-x-auto">
-    <div>
-        <h2 class="text-xl font-bold mb-4 px-4">{{ connection()?.Name }} - Indices{{ indices().length > 0 ? ' (' + indices().length + ')' : '' }}</h2>
+    <div class="flex items-center gap-3 mb-4 px-4">
+        <i class="pi pi-list text-xl text-slate-400"></i>
+        <div>
+            <h2 class="text-xl font-bold">{{ connection()?.Name }} - Indices{{ indices().length > 0 ? ' (' + indices().length + ')' : '' }}</h2>
+            <p class="text-sm text-slate-500">Index sizes, document counts, shard allocations &amp; latency stats</p>
+        </div>
     </div>
     <div class="flex items-center justify-between mb-4 gap-4 px-4">
         <div class="flex-1">

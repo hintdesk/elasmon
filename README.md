@@ -42,7 +42,7 @@ ElasMon is a standalone desktop application for real-time Elasticsearch monitori
 
 ## Tech Stack
 
-- Frontend: Angular 21, PrimeNG 21, Tailwind CSS 4
+- Frontend: Angular 21, Optimus-UI, Tailwind CSS 4
 - Desktop: Electron 39
 - Language: TypeScript
 
