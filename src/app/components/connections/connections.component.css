@@ -1,0 +1,167 @@
+:host ::ng-deep .connection-dialog {
+	border: 1px solid #dbe3ee;
+	border-radius: 14px;
+	overflow: hidden;
+	box-shadow: 0 24px 70px rgb(15 23 42 / 18%);
+}
+
+:host ::ng-deep .connection-dialog .p-dialog-header {
+	padding: 1.25rem 1.5rem 0.75rem;
+	background: #ffffff;
+	color: #172033;
+	font-size: 1.15rem;
+	font-weight: 700;
+}
+
+:host ::ng-deep .connection-dialog .p-dialog-content {
+	padding: 0.75rem 1.5rem 1.5rem;
+	background: #ffffff;
+}
+
+.dialog-intro {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.9rem 1rem;
+	margin-bottom: 1.25rem;
+	border: 1px solid #d9e8f5;
+	border-radius: 10px;
+	background: #f4f9fd;
+}
+
+.dialog-intro__mark {
+	display: grid;
+	place-items: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	flex: 0 0 auto;
+	border-radius: 8px;
+	background: #d9ecfb;
+	color: #1769aa;
+}
+
+.dialog-intro__eyebrow {
+	margin: 0 0 0.15rem;
+	color: #1769aa;
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.dialog-intro__copy,
+.form-section__hint {
+	margin: 0;
+	color: #64748b;
+	font-size: 0.8rem;
+	line-height: 1.45;
+}
+
+.form-section {
+	min-width: 0;
+	margin: 0 0 1rem;
+	padding: 1rem;
+	border: 1px solid #e2e8f0;
+	border-radius: 10px;
+	background: #fbfdff;
+}
+
+.form-section__legend {
+	padding: 0 0.4rem;
+	color: #172033;
+	font-size: 0.9rem;
+	font-weight: 700;
+}
+
+.form-section__hint {
+	margin: -0.1rem 0 1rem;
+}
+
+.field-row {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-top: 0.8rem;
+}
+
+.field-label {
+	width: 5.5rem;
+	flex: 0 0 auto;
+	color: #334155;
+	font-size: 0.82rem;
+	font-weight: 600;
+}
+
+.field-control {
+	min-width: 0;
+	flex: 1 1 auto;
+}
+
+.field-error {
+	display: block;
+	margin: 0.35rem 0 0 6.5rem;
+	color: #c2410c;
+	font-size: 0.75rem;
+}
+
+.auth-divider {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin: 1rem 0 0.1rem 6.5rem;
+	color: #94a3b8;
+	font-size: 0.72rem;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+	height: 1px;
+	flex: 1;
+	background: #e2e8f0;
+	content: '';
+}
+
+.dialog-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.6rem;
+	padding-top: 0.25rem;
+}
+
+:host ::ng-deep .connection-dialog .p-inputtext,
+:host ::ng-deep .connection-dialog .p-password-input {
+	border-color: #cbd5e1;
+	border-radius: 7px;
+	box-shadow: none;
+}
+
+:host ::ng-deep .connection-dialog .p-inputtext:focus,
+:host ::ng-deep .connection-dialog .p-password-input:focus {
+	border-color: #2f80c0;
+	box-shadow: 0 0 0 3px rgb(47 128 192 / 15%);
+}
+
+@media (max-width: 540px) {
+	:host ::ng-deep .connection-dialog .p-dialog-header,
+	:host ::ng-deep .connection-dialog .p-dialog-content {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+
+	.field-row {
+		align-items: stretch;
+		flex-direction: column;
+		gap: 0.35rem;
+	}
+
+	.field-label {
+		width: auto;
+	}
+
+	.field-error,
+	.auth-divider {
+		margin-left: 0;
+	}
+}
