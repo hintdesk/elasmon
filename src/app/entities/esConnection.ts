@@ -3,5 +3,6 @@ export class EsConnection {
     Host!: string;
     Username!: string;
     Password!: string;
+    ApiKey?: string;
     Name!: string;    
 }
