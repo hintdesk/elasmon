@@ -101,6 +101,12 @@
                             <p-sortIcon field="SearchLatency" />
                         </div>
                     </th>
+                    <th pSortableColumn="Alias">
+                        <div class="flex items-center gap-2">
+                            Alias
+                            <p-sortIcon field="Alias" />
+                        </div>
+                    </th>
                 </tr>
             </ng-template>
 
@@ -118,6 +124,7 @@
                     <td>{{ esIndex.SearchRate != null ? (esIndex.SearchRate | number:'1.0-0') : '' }}</td>
                     <td>{{ esIndex.IndexingLatency != null ? (esIndex.IndexingLatency | number:'1.2-2') : '' }}</td>
                     <td>{{ esIndex.SearchLatency != null ? (esIndex.SearchLatency | number:'1.2-2') : '' }}</td>
+                    <td>{{ esIndex.Alias }}</td>
                 </tr>
             </ng-template>
         </p-table>

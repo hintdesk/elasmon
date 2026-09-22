@@ -66,11 +66,13 @@ export class IndexComponent implements OnDestroy {
           const statsRequest = this.indexService.getStats(this.connection()!);
           const catIndicesRequest = this.indexService.getCatIndices(this.connection()!);
           const mappingRequest = this.indexService.getMapping(this.connection()!);
+          const aliasesRequest = this.indexService.getAliases(this.connection()!);
 
           return forkJoin({
             stats: statsRequest,
             catIndices: catIndicesRequest,
-            mapping: mappingRequest
+            mapping: mappingRequest,
+            aliases: aliasesRequest
           }).pipe(
             catchError(error => {
               console.error('There was an error!', error);
@@ -85,6 +87,9 @@ export class IndexComponent implements OnDestroy {
           const item = data.stats.indices[indexName];
           const index: EsIndex = {
             Name: indexName,
+            Alias: data.aliases?.[indexName]?.aliases
+              ? Object.keys(data.aliases[indexName].aliases).join(', ')
+              : '',
             Documents: item.primaries.docs.count,
             Size: item.primaries.store.size_in_bytes,
             Shards: item.primaries.shard_stats.total_count,
@@ -156,7 +161,10 @@ export class IndexComponent implements OnDestroy {
     // Filter by search text
     if (this.searchText && this.searchText.trim() !== '') {
       const searchLower = this.searchText.toLowerCase();
-      filtered = filtered.filter(index => index.Name.toLowerCase().includes(searchLower));
+      filtered = filtered.filter(index => 
+        index.Name.toLowerCase().includes(searchLower) || 
+        (index.Alias && index.Alias.toLowerCase().includes(searchLower))
+      );
     }
     
     this.indices.set(filtered);

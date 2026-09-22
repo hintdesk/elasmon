@@ -1,5 +1,6 @@
 export class EsIndex {
     Name!: string;
+    Alias?: string;
     ConnectionId!: string;  
     Documents!: number;
     Size!: string;

@@ -38,4 +38,8 @@ export class IndexService extends BaseService {
   getMapping(connection: EsConnection): any {
     return this.http.get<any>(connection.Host! + '/_mapping', { headers: this.getHeader(connection) });
   }
+
+  getAliases(connection: EsConnection): any {
+    return this.http.get<any>(connection.Host! + '/_alias', { headers: this.getHeader(connection) });
+  }
 }
