@@ -14,7 +14,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "electron": "electron .",
-    "electron:dev": "ng build && electron .",
+    "electron:dev": "ng build --base-href ./ && electron .",
     "electron:build": "ng build --configuration production --base-href ./ && electron-builder build --win",
     "electron:build:mac": "ng build --configuration production --base-href ./ && electron-builder build --mac",
     "electron:build:linux": "ng build --configuration production --base-href ./ && electron-builder build --linux",

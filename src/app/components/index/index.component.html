@@ -21,6 +21,8 @@
             <p-toggleSwitch (onChange)="showHiddenIndices($event)" inputId="showHiddenIndices"
                 [(ngModel)]="showHidden"></p-toggleSwitch>
         </div>
+        <p-button label="Columns" icon="pi pi-list" severity="secondary" [outlined]="true"
+            (onClick)="openColumnsDialog()"></p-button>
     </div>
 
     @if (loading()) {
@@ -32,102 +34,176 @@
         <p-table class="p-4 min-w-max" [value]="indices()">
             <ng-template #header>
                 <tr>
-                    <th pSortableColumn="Name">
-                        <div class="flex items-center gap-2">
-                            Name
-                            <p-sortIcon field="Name" />
-                        </div>
-                    </th>
-                    <th pSortableColumn="Documents">
-                        <div class="flex items-center gap-2">
-                            Documents
-                            <p-sortIcon field="Documents" />
-                        </div>
-                    </th>
-                    <th pSortableColumn="Size" pTooltip="Total size of index (primary only)" tooltipPosition="top">
-                        <div class="flex items-center gap-2">
-                            Size
-                            <p-sortIcon field="Size" />
-                        </div>
-                    </th>
-                    <th pSortableColumn="Shards">
-                        <div class="flex items-center gap-2">
-                            Shards
-                            <p-sortIcon field="Shards" />
-                        </div>
-                    </th>
-
-                    <th pSortableColumn="GBPerShard" pTooltip="Number of GB per Shard. The rate should be less than 50."
-                        tooltipPosition="top">
-                        <div class="flex items-center gap-2">
-                            GB/Shard
-                            <p-sortIcon field="GBPerShard" />
-                        </div>
-                    </th>
-
-                    <th pSortableColumn="Replicas">
-                        <div class="flex items-center gap-2">
-                            Replicas
-                            <p-sortIcon field="Replicas" />
-                        </div>
-                    </th>
-                    <th pSortableColumn="FieldCount" pTooltip="Number of fields (system fields not included). The count should be less than 1000." tooltipPosition="top">
-                        <div class="flex items-center gap-2">
-                            Field Count
-                            <p-sortIcon field="FieldCount" />
-                        </div>
-                    </th>
-                    <th pSortableColumn="IndexingRate" pTooltip="Number of documents indexed per second" tooltipPosition="top">
-                        <div class="flex items-center gap-2">
-                            Indexing Rate
-                            <p-sortIcon field="IndexingRate" />
-                        </div>
-                    </th>
-                    <th pSortableColumn="SearchRate" pTooltip="Number of search queries per second" tooltipPosition="top">
-                        <div class="flex items-center gap-2">
-                            Search Rate
-                            <p-sortIcon field="SearchRate" />
-                        </div>
-                    </th>
-                    <th pSortableColumn="IndexingLatency" pTooltip="Average time to index a document (ms)" tooltipPosition="top">
-                        <div class="flex items-center gap-2">
-                            Indexing Latency
-                            <p-sortIcon field="IndexingLatency" />
-                        </div>
-                    </th>
-                    <th pSortableColumn="SearchLatency" pTooltip="Average time to execute a search (ms)" tooltipPosition="top">
-                        <div class="flex items-center gap-2">
-                            Search Latency
-                            <p-sortIcon field="SearchLatency" />
-                        </div>
-                    </th>
-                    <th pSortableColumn="Alias">
-                        <div class="flex items-center gap-2">
-                            Alias
-                            <p-sortIcon field="Alias" />
-                        </div>
-                    </th>
+                    @if (isColumnVisible('Name')) {
+                        <th pSortableColumn="Name">
+                            <div class="flex items-center gap-2">
+                                Name
+                                <p-sortIcon field="Name" />
+                            </div>
+                        </th>
+                    }
+                    @if (isColumnVisible('Documents')) {
+                        <th pSortableColumn="Documents">
+                            <div class="flex items-center gap-2">
+                                Documents
+                                <p-sortIcon field="Documents" />
+                            </div>
+                        </th>
+                    }
+                    @if (isColumnVisible('Size')) {
+                        <th pSortableColumn="Size" pTooltip="Total size of index (primary only)" tooltipPosition="top">
+                            <div class="flex items-center gap-2">
+                                Size
+                                <p-sortIcon field="Size" />
+                            </div>
+                        </th>
+                    }
+                    @if (isColumnVisible('Shards')) {
+                        <th pSortableColumn="Shards">
+                            <div class="flex items-center gap-2">
+                                Shards
+                                <p-sortIcon field="Shards" />
+                            </div>
+                        </th>
+                    }
+                    @if (isColumnVisible('GBPerShard')) {
+                        <th pSortableColumn="GBPerShard" pTooltip="Number of GB per Shard. The rate should be less than 50."
+                            tooltipPosition="top">
+                            <div class="flex items-center gap-2">
+                                GB/Shard
+                                <p-sortIcon field="GBPerShard" />
+                            </div>
+                        </th>
+                    }
+                    @if (isColumnVisible('Replicas')) {
+                        <th pSortableColumn="Replicas">
+                            <div class="flex items-center gap-2">
+                                Replicas
+                                <p-sortIcon field="Replicas" />
+                            </div>
+                        </th>
+                    }
+                    @if (isColumnVisible('FieldCount')) {
+                        <th pSortableColumn="FieldCount" pTooltip="Number of fields (system fields not included). The count should be less than 1000." tooltipPosition="top">
+                            <div class="flex items-center gap-2">
+                                Field Count
+                                <p-sortIcon field="FieldCount" />
+                            </div>
+                        </th>
+                    }
+                    @if (isColumnVisible('IndexingRate')) {
+                        <th pSortableColumn="IndexingRate" pTooltip="Number of documents indexed per second" tooltipPosition="top">
+                            <div class="flex items-center gap-2">
+                                Indexing Rate
+                                <p-sortIcon field="IndexingRate" />
+                            </div>
+                        </th>
+                    }
+                    @if (isColumnVisible('SearchRate')) {
+                        <th pSortableColumn="SearchRate" pTooltip="Number of search queries per second" tooltipPosition="top">
+                            <div class="flex items-center gap-2">
+                                Search Rate
+                                <p-sortIcon field="SearchRate" />
+                            </div>
+                        </th>
+                    }
+                    @if (isColumnVisible('IndexingLatency')) {
+                        <th pSortableColumn="IndexingLatency" pTooltip="Average time to index a document (ms)" tooltipPosition="top">
+                            <div class="flex items-center gap-2">
+                                Indexing Latency
+                                <p-sortIcon field="IndexingLatency" />
+                            </div>
+                        </th>
+                    }
+                    @if (isColumnVisible('SearchLatency')) {
+                        <th pSortableColumn="SearchLatency" pTooltip="Average time to execute a search (ms)" tooltipPosition="top">
+                            <div class="flex items-center gap-2">
+                                Search Latency
+                                <p-sortIcon field="SearchLatency" />
+                            </div>
+                        </th>
+                    }
+                    @if (isColumnVisible('Alias')) {
+                        <th pSortableColumn="Alias">
+                            <div class="flex items-center gap-2">
+                                Alias
+                                <p-sortIcon field="Alias" />
+                            </div>
+                        </th>
+                    }
                 </tr>
             </ng-template>
 
             <ng-template #body let-esIndex>
                 <tr>
-                    <td>{{ esIndex.Name }}</td>
-                    <td>{{ esIndex.Documents }}</td>
-                    <td>{{ esIndex.Size | formatBytes}}</td>
-                    <td>{{ esIndex.Shards }}</td>
-                    <td [class]="esIndex.GBPerShard > 50 ? 'text-red-500 font-bold' : ''">{{ esIndex.GBPerShard ?
-                        (esIndex.GBPerShard | number:'1.2-2') : '' }}</td>
-                    <td>{{ esIndex.Replicas }}</td>
-                    <td [class]="esIndex.FieldCount != null && esIndex.FieldCount > 1000 ? 'text-red-500 font-bold' : ''">{{ esIndex.FieldCount != null ? esIndex.FieldCount : '' }}</td>
-                    <td>{{ esIndex.IndexingRate != null ? (esIndex.IndexingRate | number:'1.0-0') : '' }}</td>
-                    <td>{{ esIndex.SearchRate != null ? (esIndex.SearchRate | number:'1.0-0') : '' }}</td>
-                    <td>{{ esIndex.IndexingLatency != null ? (esIndex.IndexingLatency | number:'1.2-2') : '' }}</td>
-                    <td>{{ esIndex.SearchLatency != null ? (esIndex.SearchLatency | number:'1.2-2') : '' }}</td>
-                    <td>{{ esIndex.Alias }}</td>
+                    @if (isColumnVisible('Name')) { 
+                        <td>{{ esIndex.Name }}</td> 
+                    }
+                    @if (isColumnVisible('Documents')) { 
+                        <td>{{ esIndex.Documents }}</td> 
+                    }
+                    @if (isColumnVisible('Size')) { 
+                        <td>{{ esIndex.Size | formatBytes }}</td> 
+                    }
+                    @if (isColumnVisible('Shards')) { 
+                        <td>{{ esIndex.Shards }}</td> 
+                    }
+                    @if (isColumnVisible('GBPerShard')) {
+                        <td [class]="esIndex.GBPerShard > 50 ? 'text-red-500 font-bold' : ''">{{ esIndex.GBPerShard ?
+                            (esIndex.GBPerShard | number:'1.2-2') : '' }}</td>
+                    }
+                    @if (isColumnVisible('Replicas')) { 
+                        <td>{{ esIndex.Replicas }}</td> 
+                    }
+                    @if (isColumnVisible('FieldCount')) {
+                        <td [class]="esIndex.FieldCount != null && esIndex.FieldCount > 1000 ? 'text-red-500 font-bold' : ''">{{ esIndex.FieldCount != null ? esIndex.FieldCount : '' }}</td>
+                    }
+                    @if (isColumnVisible('IndexingRate')) { 
+                        <td>{{ esIndex.IndexingRate != null ? (esIndex.IndexingRate | number:'1.0-0') : '' }}</td> 
+                    }
+                    @if (isColumnVisible('SearchRate')) { 
+                        <td>{{ esIndex.SearchRate != null ? (esIndex.SearchRate | number:'1.0-0') : '' }}</td> 
+                    }
+                    @if (isColumnVisible('IndexingLatency')) { 
+                        <td>{{ esIndex.IndexingLatency != null ? (esIndex.IndexingLatency | number:'1.2-2') : '' }}</td> 
+                    }
+                    @if (isColumnVisible('SearchLatency')) { 
+                        <td>{{ esIndex.SearchLatency != null ? (esIndex.SearchLatency | number:'1.2-2') : '' }}</td> 
+                    }
+                    @if (isColumnVisible('Alias')) {
+                        <td>
+                            <div class="flex flex-col">
+                                @for (alias of esIndex.Alias ?? []; track alias) {
+                                <span>{{ alias }}</span>
+                                }
+                            </div>
+                        </td>
+                    }
                 </tr>
             </ng-template>
         </p-table>
     </div>
     }
 </div>
+
+<p-dialog [(visible)]="isColumnsDialogVisible" [modal]="true" [closable]="false"
+    [style]="{ width: 'min(420px, calc(100vw - 2rem))' }" header="Columns">
+    <div class="flex flex-col gap-3">
+        @for (column of columnSelections; track column.field) {
+        <div class="flex items-center gap-2">
+            <p-checkbox [inputId]="'column-' + column.field" [binary]="true" [(ngModel)]="column.selected"></p-checkbox>
+            <label [for]="'column-' + column.field">{{ column.label }}</label>
+        </div>
+        }
+    </div>
+    <ng-template #footer>
+        <div class="flex items-center justify-between w-full">
+            <p-button label="Select All" severity="secondary" [outlined]="true" (onClick)="selectAllColumns()"></p-button>
+            <div class="flex gap-2">
+                <p-button label="Cancel" severity="secondary" [outlined]="true"
+                    (onClick)="isColumnsDialogVisible = false"></p-button>
+                <p-button label="Apply" icon="pi pi-check" (onClick)="applyColumnSelection()"></p-button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
