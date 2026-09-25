@@ -1,6 +1,6 @@
 <div class="p-4">
 <div class="flex justify-end mb-4">
-    <p-button (onClick)="newConnection()" label="New Connection"></p-button>
+    <p-button (onClick)="newConnection()" label="New Connection" icon="pi pi-plus"></p-button>
 </div>
 <p-dialog [closable]="false" [(visible)]="isVisible" [modal]="true" styleClass="connection-dialog" [style]="{ width: 'min(600px, calc(100vw - 2rem))' }" [header]="dialogHeader"
     (onHide)="isVisible = false">
