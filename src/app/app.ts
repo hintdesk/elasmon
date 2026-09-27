@@ -21,6 +21,13 @@ import { FieldDataComponent } from './components/fielddatas/fielddatas.component
 const DESKTOP_BREAKPOINT = 1024; // Tailwind lg breakpoint
 const THEME_STORAGE_KEY = 'elasmon-theme';
 
+declare global {
+  interface Window {
+    // Exposed by electron/preload.js, undefined when running in a browser
+    electronAPI?: { setDarkMode(isDark: boolean): void };
+  }
+}
+
 @Component({
   selector: 'app-root',
   imports: [ConnectionsComponent, PanelMenuModule, ButtonModule, TagModule, CircuitbreakersComponent, ThreadpoolComponent, ShardComponent, FieldDataComponent, IndexComponent, NodeComponent, SplitterModule, ConnectionComponent, MenubarModule],
@@ -39,6 +46,10 @@ export class App implements OnInit {
     // Set default based on screen size
     this.sidebarVisible.set(window.innerWidth >= DESKTOP_BREAKPOINT);
 
+    if (window.electronAPI) {
+      document.documentElement.classList.add('electron');
+    }
+
     const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
     this.darkMode.set(savedTheme ? savedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
     this.applyTheme();
@@ -56,6 +67,7 @@ export class App implements OnInit {
 
   private applyTheme() {
     document.documentElement.classList.toggle('app-dark', this.darkMode());
+    window.electronAPI?.setDarkMode(this.darkMode());
   }
 
   constructor(private connectionService: ConnectionService) {
