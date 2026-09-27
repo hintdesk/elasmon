@@ -19,6 +19,7 @@ import { CircuitbreakersComponent } from './components/circuitbreakers/circuitbr
 import { FieldDataComponent } from './components/fielddatas/fielddatas.component';
 
 const DESKTOP_BREAKPOINT = 1024; // Tailwind lg breakpoint
+const THEME_STORAGE_KEY = 'elasmon-theme';
 
 @Component({
   selector: 'app-root',
@@ -32,14 +33,29 @@ export class App implements OnInit {
   connectionNodes = computed<MenuItem[]>(() => this.buildConnectionNodes());
   // Sidebar visibility - Desktop: default visible, Mobile/Tablet: default hidden
   sidebarVisible = signal<boolean>(true);
+  darkMode = signal<boolean>(false);
 
   ngOnInit() {
     // Set default based on screen size
     this.sidebarVisible.set(window.innerWidth >= DESKTOP_BREAKPOINT);
+
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    this.darkMode.set(savedTheme ? savedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
+    this.applyTheme();
   }
 
   toggleSidebar() {
     this.sidebarVisible.set(!this.sidebarVisible());
+  }
+
+  toggleDarkMode() {
+    this.darkMode.set(!this.darkMode());
+    localStorage.setItem(THEME_STORAGE_KEY, this.darkMode() ? 'dark' : 'light');
+    this.applyTheme();
+  }
+
+  private applyTheme() {
+    document.documentElement.classList.toggle('app-dark', this.darkMode());
   }
 
   constructor(private connectionService: ConnectionService) {

@@ -2,3 +2,5 @@
 
 @import "tailwindcss";
 @import "@openng/icons/openng-icons.css";
+
+@custom-variant dark (&:where(.app-dark, .app-dark *));
