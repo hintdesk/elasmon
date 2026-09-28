@@ -63,7 +63,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideOptimus({
             theme: {
-                preset: Noir,                
+                preset: Noir,
+                options: {
+                    darkModeSelector: '.app-dark'
+                }
             }
         }),
     provideHttpClient(),

@@ -13,10 +13,10 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
 
         <!-- Cluster Name Card -->
-        <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="p-card p-4 rounded-lg shadow-md dark:border dark:border-zinc-700 dark:shadow-white/10">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">Cluster Status</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Cluster Status</p>
                     <p class="text-2xl font-bold mt-1"
                         [class]="clusterStats()?.status === 'green' ? 'text-green-500' : clusterStats()?.status === 'yellow' ? 'text-yellow-500' : 'text-red-500'">
                         {{ clusterStats()?.status | titlecase }}</p>
@@ -32,10 +32,10 @@
         </div>
 
         <!-- Nodes Card -->
-        <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="p-card p-4 rounded-lg shadow-md dark:border dark:border-zinc-700 dark:shadow-white/10">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">Nodes</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Nodes</p>
                     <p class="text-2xl font-bold mt-1"
                         [class.text-red-500]="clusterStats()?._nodes?.successful! < clusterStats()?._nodes?.total!">{{
                         clusterStats()?._nodes?.successful }}</p>
@@ -47,10 +47,10 @@
         </div>
 
         <!-- Documents Card -->
-        <div class="p-card p-4 rounded-lg shadow-md" pTooltip="Total number of documents across all indices (primary only)" tooltipPosition="top">
+        <div class="p-card p-4 rounded-lg shadow-md dark:border dark:border-zinc-700 dark:shadow-white/10" pTooltip="Total number of documents across all indices (primary only)" tooltipPosition="top">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">Total Documents</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Total Documents</p>
                     <p class="text-2xl font-bold mt-1">{{ clusterStats()?.indices?.docs?.count | number }}</p>
                 </div>
                 <i class="pi pi-file text-3xl text-green-500"></i>
@@ -59,10 +59,10 @@
         </div>
 
         <!-- Store Size Card -->
-        <div class="p-card p-4 rounded-lg shadow-md" pTooltip="Total size of all index data stored in the cluster (primary and replicas)" tooltipPosition="top">
+        <div class="p-card p-4 rounded-lg shadow-md dark:border dark:border-zinc-700 dark:shadow-white/10" pTooltip="Total size of all index data stored in the cluster (primary and replicas)" tooltipPosition="top">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">Total Store Size</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Total Store Size</p>
                     <p class="text-2xl font-bold mt-1">{{ clusterStats()?.indices?.store?.size_in_bytes | formatBytes }}
                     </p>
                 </div>
@@ -72,10 +72,10 @@
         </div>
 
         <!-- CPU Card -->
-        <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="p-card p-4 rounded-lg shadow-md dark:border dark:border-zinc-700 dark:shadow-white/10">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">CPU</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">CPU</p>
                     <p class="text-2xl font-bold mt-1">{{ clusterStats()?.nodes?.process?.cpu?.percent }}%</p>
                 </div>
                 <i class="pi pi-microchip text-3xl text-cyan-500"></i>
@@ -85,10 +85,10 @@
         </div>
 
         <!-- Heap Memory Card -->
-        <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="p-card p-4 rounded-lg shadow-md dark:border dark:border-zinc-700 dark:shadow-white/10">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">Heap Memory</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Heap Memory</p>
                     <p class="text-2xl font-bold mt-1">{{ (clusterStats()?.nodes?.jvm?.mem?.heap_used_in_bytes! * 100 /
                         clusterStats()?.nodes?.jvm?.mem?.heap_max_in_bytes!) | number:'1.1-1' }}%</p>
                 </div>
@@ -99,10 +99,10 @@
         </div>
 
         <!-- System Memory Card -->
-        <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="p-card p-4 rounded-lg shadow-md dark:border dark:border-zinc-700 dark:shadow-white/10">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">Memory</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Memory</p>
                     <p class="text-2xl font-bold mt-1">{{ clusterStats()?.nodes?.os?.mem?.used_percent }}%</p>
                 </div>
                 <i class="pi pi-chart-bar text-3xl text-pink-500"></i>
@@ -112,10 +112,10 @@
         </div>
 
         <!-- Disk Card -->
-        <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="p-card p-4 rounded-lg shadow-md dark:border dark:border-zinc-700 dark:shadow-white/10">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">Disk</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Disk</p>
                     <p class="text-2xl font-bold mt-1">{{ ((clusterStats()?.nodes?.fs?.total_in_bytes! -
                         clusterStats()?.nodes?.fs?.available_in_bytes!) / clusterStats()?.nodes?.fs?.total_in_bytes!) *
                         100 | number:'1.1-1' }}%</p>
@@ -128,10 +128,10 @@
         </div>
 
         <!-- HTTP Connections Card -->
-        <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="p-card p-4 rounded-lg shadow-md dark:border dark:border-zinc-700 dark:shadow-white/10">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">HTTP Connections</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">HTTP Connections</p>
                     <p class="text-2xl font-bold mt-1">{{ http() }}</p>
                 </div>
                 <i class="pi pi-link text-3xl text-teal-500"></i>
@@ -140,10 +140,10 @@
         </div>
 
         <!-- Query Latency Card -->
-        <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="p-card p-4 rounded-lg shadow-md dark:border dark:border-zinc-700 dark:shadow-white/10">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">Query Latency</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Query Latency</p>
                     <p class="text-2xl font-bold mt-1">{{ queryTime() / queryTotal() | number:'1.2-2' }} ms</p>
                 </div>
                 <i class="pi pi-search text-3xl text-blue-400"></i>
@@ -152,10 +152,10 @@
         </div>
 
         <!-- Index Latency Card -->
-        <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="p-card p-4 rounded-lg shadow-md dark:border dark:border-zinc-700 dark:shadow-white/10">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">Index Latency</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Index Latency</p>
                     <p class="text-2xl font-bold mt-1">{{ indexTime() / indexTotal() | number:'1.2-2' }} ms</p>
                 </div>
                 <i class="pi pi-pencil text-3xl text-emerald-500"></i>
@@ -164,10 +164,10 @@
         </div>
 
         <!-- Pending Tasks Card -->
-        <div class="p-card p-4 rounded-lg shadow-md">
+        <div class="p-card p-4 rounded-lg shadow-md dark:border dark:border-zinc-700 dark:shadow-white/10">
             <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">Pending Tasks</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Pending Tasks</p>
                     <p class="text-2xl font-bold mt-1"
                         [class.text-red-500]="clusterHealth()?.number_of_pending_tasks! > 0">{{
                         clusterHealth()?.number_of_pending_tasks ?? 0 }}</p>

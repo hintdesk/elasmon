@@ -143,6 +143,54 @@
 	box-shadow: 0 0 0 3px rgb(47 128 192 / 15%);
 }
 
+:host-context(.app-dark) ::ng-deep .connection-dialog {
+	border-color: #3f3f46;
+	box-shadow: 0 24px 70px rgb(0 0 0 / 45%);
+}
+
+:host-context(.app-dark) ::ng-deep .connection-dialog .p-dialog-header,
+:host-context(.app-dark) ::ng-deep .connection-dialog .p-dialog-content {
+	background: #18181b;
+	color: #fafafa;
+}
+
+:host-context(.app-dark) .form-section {
+	border-color: #3f3f46;
+	background: #1f1f23;
+}
+
+:host-context(.app-dark) .form-section__legend {
+	color: #fafafa;
+}
+
+:host-context(.app-dark) .field-label {
+	color: #d4d4d8;
+}
+
+:host-context(.app-dark) .field-error {
+	color: #fb923c;
+}
+
+:host-context(.app-dark) .auth-divider {
+	color: #71717a;
+}
+
+:host-context(.app-dark) .auth-divider::before,
+:host-context(.app-dark) .auth-divider::after {
+	background: #3f3f46;
+}
+
+:host-context(.app-dark) ::ng-deep .connection-dialog .p-inputtext,
+:host-context(.app-dark) ::ng-deep .connection-dialog .p-password-input {
+	border-color: #52525b;
+}
+
+:host-context(.app-dark) ::ng-deep .connection-dialog .p-inputtext:focus,
+:host-context(.app-dark) ::ng-deep .connection-dialog .p-password-input:focus {
+	border-color: #60a5fa;
+	box-shadow: 0 0 0 3px rgb(96 165 250 / 20%);
+}
+
 @media (max-width: 540px) {
 	:host ::ng-deep .connection-dialog .p-dialog-header,
 	:host ::ng-deep .connection-dialog .p-dialog-content {
