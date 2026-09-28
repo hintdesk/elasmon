@@ -1,8 +1,8 @@
 const { app, BrowserWindow, Menu, ipcMain, nativeTheme } = require('electron');
 const path = require('path');
 
-// Must match the menubar height (60px min-height minus 1px bottom border) in src/app/app.css
-const TITLE_BAR_HEIGHT = 59;
+// Must match the menubar height (48px min-height minus 1px bottom border) in src/app/app.css
+const TITLE_BAR_HEIGHT = 47;
 const TITLE_BAR_COLORS = {
   light: { color: '#ffffff', symbolColor: '#3f3f46' },
   dark: { color: '#18181b', symbolColor: '#fafafa' },
