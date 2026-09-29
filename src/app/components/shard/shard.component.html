@@ -80,9 +80,9 @@
     </div>
 
     <div class="mt-4 px-4 pb-4">
-        @if (shards().length > 0) {
+        @if (allShards().length > 0) {
         <div class="overflow-x-auto">
-            <p-table class="min-w-max" [value]="shards()">
+            <p-table class="min-w-max" [value]="allShards()">
                 <ng-template #header>
                     <tr>
                         <th pSortableColumn="Index">

@@ -19,7 +19,7 @@ import { FormatBytesPipe } from '../../pipes/format-bytes.pipe';
 export class ShardComponent implements OnDestroy {
   connection = input<EsConnection>()
   clusterHealth = signal<ClusterHealth | null>(null);
-  shards = signal<EsShard[]>([]);
+  allShards = signal<EsShard[]>([]);
   loading = signal<boolean>(true);
 
   private subscription: Subscription | null = null;
@@ -51,7 +51,7 @@ export class ShardComponent implements OnDestroy {
     // Reset all data and show loading
     this.loading.set(true);
     this.clusterHealth.set(null);
-    this.shards.set([]);
+    this.allShards.set([]);
 
     // Start new subscription
     this.subscription = timer(0, 20000)
@@ -74,14 +74,19 @@ export class ShardComponent implements OnDestroy {
         }
 
         this.clusterHealth.set(data.health);
-        const allShards: EsShard[] = data.shards.map((shard: any) => ({
-          Index: shard.index,
-          Shard: shard.shard,
-          PriRep: shard.prirep,
-          Docs: Number(shard.docs) || 0,
-          Store: Number(shard.store) || 0,
-        } as EsShard));
-        this.shards.set(allShards.sort((a, b) => b.Docs - a.Docs || b.Store - a.Store));
+        const items: EsShard[] = [];
+
+        for (const shard of data.shards) {
+          const item: EsShard = {
+            Index: shard.index,
+            Shard: shard.shard,
+            PriRep: shard.prirep,
+            Docs: Number(shard.docs) || 0,
+            Store: Number(shard.store) || 0,
+          }
+          items.push(item);
+        }
+        this.allShards.set(items.sort((a, b) => b.Docs - a.Docs || b.Store - a.Store));
       });
   }
 }
