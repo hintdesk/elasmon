@@ -65,7 +65,17 @@
             }
         </fieldset>
 
+        @if (testResult() === true) {
+            <p class="mb-3 text-sm text-green-600"><i class="pi pi-check-circle mr-1"></i>Connection successful.</p>
+        } @else if (testResult() === false) {
+            <p class="mb-3 text-sm text-red-600"><i class="pi pi-times-circle mr-1"></i>Connection failed. Please check the host and credentials.</p>
+        }
+
         <div class="dialog-actions">
+            <div class="mr-auto">
+                <p-button label="Test connection" severity="secondary" icon="pi pi-bolt" [loading]="isTesting()"
+                    [disabled]="!host" (click)="testConnection()" />
+            </div>
             <p-button label="Cancel" severity="secondary" [outlined]="true" (click)="cancel(connectionForm)" />
             <p-button label="Save" type="submit" icon="pi pi-check" />
         </div>

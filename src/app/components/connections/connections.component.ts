@@ -23,6 +23,8 @@ export class ConnectionsComponent {
   username: string = "";
   password: string = "";
   apiKey: string = "";
+  isTesting = signal(false);
+  testResult = signal<boolean | null>(null);
 
   constructor(private connectionService: ConnectionService) {
     this.connections = this.connectionService.items;
@@ -35,6 +37,7 @@ export class ConnectionsComponent {
     this.username = '';
     this.password = '';
     this.apiKey = '';
+    this.testResult.set(null);
     this.isVisible = true;
   }
 
@@ -45,7 +48,21 @@ export class ConnectionsComponent {
     this.username = connection.Username || '';
     this.password = '';
     this.apiKey = connection.ApiKey || '';
+    this.testResult.set(null);
     this.isVisible = true;
+  }
+
+  async testConnection() {
+    let password = this.password;
+    if (!this.apiKey && !password && this.editingConnectionId) {
+      // Password field is blank when editing; fall back to the saved one
+      password = this.connections().find(c => c.Id === this.editingConnectionId)?.Password || '';
+    }
+    this.isTesting.set(true);
+    this.testResult.set(null);
+    const result = await this.connectionService.check(this.host.trim(), this.username, password, this.apiKey.trim());
+    this.testResult.set(result);
+    this.isTesting.set(false);
   }
 
   get dialogHeader(): string {
