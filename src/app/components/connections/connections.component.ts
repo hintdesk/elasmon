@@ -7,6 +7,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { InputTextModule } from '@openng/optimus-ui/inputtext';
 import { ConnectionService } from '../../services/connection.service';
 import { PasswordModule } from '@openng/optimus-ui/password';
+import { catchError, map, of } from 'rxjs';
 
 @Component({
   selector: 'connections',
@@ -52,7 +53,7 @@ export class ConnectionsComponent {
     this.isVisible = true;
   }
 
-  async testConnection() {
+  testConnection() {
     let password = this.password;
     if (!this.apiKey && !password && this.editingConnectionId) {
       // Password field is blank when editing; fall back to the saved one
@@ -60,9 +61,16 @@ export class ConnectionsComponent {
     }
     this.isTesting.set(true);
     this.testResult.set(null);
-    const result = await this.connectionService.check(this.host.trim(), this.username, password, this.apiKey.trim());
-    this.testResult.set(result);
-    this.isTesting.set(false);
+    this.connectionService.check(this.host.trim(), this.username, password, this.apiKey.trim())
+      .pipe(
+        map((res: any) => res.status === 200),
+        // HttpClient throws on non-2xx and network errors (status 0)
+        catchError(() => of(false))
+      )
+      .subscribe((result: boolean) => {
+        this.testResult.set(result);
+        this.isTesting.set(false);
+      });
   }
 
   get dialogHeader(): string {

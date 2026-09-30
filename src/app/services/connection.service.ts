@@ -1,5 +1,4 @@
 import { Injectable, signal } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
 import { EsConnection } from '../entities/esConnection';
 import { BaseService } from './base.service';
 
@@ -22,14 +21,9 @@ export class ConnectionService extends BaseService {
     localStorage.setItem('elasmon', JSON.stringify(this.items()));
   }
 
-  async check(url: string, username: string, password: string, apiKey: string): Promise<boolean> {
+  check(url: string, username: string, password: string, apiKey: string): any {
     const connection = { Host: url, Username: username, Password: password, ApiKey: apiKey } as EsConnection;
     const host = url.endsWith('/') ? url.slice(0, -1) : url;
-    try {
-      await firstValueFrom(this.http.get(host + '/', { headers: this.getHeader(connection) }));
-      return true;
-    } catch {
-      return false;
-    }
+    return this.http.get(host + '/', { headers: this.getHeader(connection), observe: 'response' });
   }
 }
