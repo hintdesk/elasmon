@@ -82,7 +82,19 @@
     <div class="mt-4 px-4 pb-4">
         @if (allShards().length > 0) {
         <div class="overflow-x-auto">
-            <p-table class="min-w-max" [value]="allShards()">
+            <div class="mb-3">
+                <p-iconfield>
+                    <p-inputicon styleClass="pi pi-search" />
+                    <input type="text" pInputText placeholder="Filter by index name..."
+                        [(ngModel)]="searchText"
+                        (ngModelChange)="onSearchChange()"
+                        class="w-full" />
+                    @if (searchText) {
+                    <p-inputicon styleClass="pi pi-times cursor-pointer" (click)="clearSearch()" />
+                    }
+                </p-iconfield>
+            </div>
+            <p-table class="min-w-max" [value]="filteredShards()">
                 <ng-template #header>
                     <tr>
                         <th pSortableColumn="Index">

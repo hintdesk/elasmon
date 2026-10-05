@@ -1,4 +1,5 @@
 import { Component, effect, input, OnDestroy, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { EsConnection } from '../../entities/esConnection';
 import { ClusterHealth } from '../../entities/clusterHealth';
 import { catchError, forkJoin, of, Subscription, switchMap, timer } from 'rxjs';
@@ -6,13 +7,16 @@ import { ClusterService } from '../../services/cluster.service';
 import { DecimalPipe } from '@angular/common';
 import { ProgressSpinnerModule } from '@openng/optimus-ui/progressspinner';
 import { TableModule } from '@openng/optimus-ui/table';
+import { IconFieldModule } from '@openng/optimus-ui/iconfield';
+import { InputIconModule } from '@openng/optimus-ui/inputicon';
+import { InputTextModule } from '@openng/optimus-ui/inputtext';
 import { ShardService } from '../../services/shard.service';
 import { EsShard } from '../../entities/esShard';
 import { FormatBytesPipe } from '../../pipes/format-bytes.pipe';
 
 @Component({
   selector: 'shard',
-  imports: [ProgressSpinnerModule, DecimalPipe, TableModule, FormatBytesPipe],
+  imports: [ProgressSpinnerModule, DecimalPipe, TableModule, FormatBytesPipe, FormsModule, IconFieldModule, InputIconModule, InputTextModule],
   templateUrl: './shard.component.html',
   styleUrl: './shard.component.css',
 })
@@ -20,6 +24,8 @@ export class ShardComponent implements OnDestroy {
   connection = input<EsConnection>()
   clusterHealth = signal<ClusterHealth | null>(null);
   allShards = signal<EsShard[]>([]);
+  filteredShards = signal<EsShard[]>([]);
+  searchText: string = '';
   loading = signal<boolean>(true);
 
   private subscription: Subscription | null = null;
@@ -52,6 +58,7 @@ export class ShardComponent implements OnDestroy {
     this.loading.set(true);
     this.clusterHealth.set(null);
     this.allShards.set([]);
+    this.filteredShards.set([]);
 
     // Start new subscription
     this.subscription = timer(0, 20000)
@@ -87,6 +94,23 @@ export class ShardComponent implements OnDestroy {
           items.push(item);
         }
         this.allShards.set(items.sort((a, b) => b.Docs - a.Docs || b.Store - a.Store));
+        this.filterShards();
       });
+  }
+
+  onSearchChange(): void {
+    this.filterShards();
+  }
+
+  clearSearch(): void {
+    this.searchText = '';
+    this.filterShards();
+  }
+
+  private filterShards(): void {
+    const searchText = this.searchText.trim().toLowerCase();
+    this.filteredShards.set(this.allShards().filter(shard =>
+      shard.Index.toLowerCase().includes(searchText)
+    ));
   }
 }
