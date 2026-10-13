@@ -1,5 +1,19 @@
 /* Electron: menubar acts as the window title bar, native window controls are overlaid on the right */
+/* Scroll only the content area so the scrollbar is not hidden under the native window controls */
+:host-context(.electron) {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+:host-context(.electron) .app-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
 :host-context(.electron) p-menubar {
+  flex-shrink: 0;
   min-height: 48px;
   padding-left: max(0.75rem, env(titlebar-area-x, 0px));
   padding-right: calc(100% - env(titlebar-area-x, 0px) - env(titlebar-area-width, 100%) + 0.75rem);
